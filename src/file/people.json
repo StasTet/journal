@@ -1,0 +1,59 @@
+[
+    {
+        "name": "Hester",
+        "surname": "Jenkins",
+        "age":  13,
+        "phone": "+7 (812) 123-1234",
+        "mark" : 2
+    },
+    {
+        "name": "Lora",
+        "surname": "Mills",
+        "age":  51,
+        "phone": "+7 (916) 123-4567",
+        "mark" : null
+    },
+    {
+        "name": "Dollie",
+        "surname": "Bowers",
+        "age":  21,
+        "phone": "+7 (613) 645-3564",
+        "mark" : null
+    },
+    {
+        "name": "Fred",
+        "surname": "Tylerr",
+        "age":  25,
+        "phone": "+7 (999) 777-8966",
+        "mark" : null
+    },
+    {
+        "name": "Amy",
+        "surname": "Morgan",
+        "age":  45,
+        "phone": "+7 (812) 123-1234",
+        "mark" : 5
+    },
+    {
+        "name": "Caleb",
+        "surname": "Cole",
+        "age":  33,
+        "phone": "+7 (916) 123-4567",
+        "mark" : null
+    },
+    {
+        "name": "Brett",
+        "surname": "Wilkins",
+        "age":  19,
+        "phone": "+7 (452) 900-6113",
+        "mark" : 3
+    },
+    {
+        "name": "Rosalie",
+        "surname": "Marsh",
+        "age":  43,
+        "phone": "+7 (999) 777-8966",
+        "mark" : null
+    }
+
+]
