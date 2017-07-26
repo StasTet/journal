@@ -1,4 +1,4 @@
-# Journal (Reac + Redux)
+# Journal (React + Redux)
 
 ### Installation
 
