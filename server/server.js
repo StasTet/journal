@@ -3,7 +3,13 @@ import favicon from 'serve-favicon'
 import path from 'path';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import wpConfig from '../webpack.config.js'
+import webpack from 'webpack';
 // import cors from 'cors';
+
 import methodOverride from 'method-override';
 import config from './config/config.json';
 // import * as db from './config/db';
@@ -14,6 +20,18 @@ export const startServer = () => {
 	const app = express();
 
 	// db.setUpConnection();
+
+	
+	const compiler = webpack(wpConfig);
+
+	app.use(webpackDevMiddleware(compiler, {
+		noInfo: true,
+		publicPath: wpConfig.output.publicPath
+	}));
+	
+	app.use(webpackHotMiddleware(compiler, {
+		log: false
+	}));
 
 	app.use(express.static(path.join('build')));
 	app.use(morgan('dev'));

@@ -9,7 +9,11 @@ export const configureStore = (initialState) => {
     const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk, logger)));
     
     if (module.hot) {
-        module.hot.accept('../reducers', () => store.replaceReducer(rootReducer))
+        module.hot.accept('../reducers', () => {
+            const nextRootReducer = require('../reducers');
+
+            store.replaceReducer(nextRootReducer);
+        });
     }
 
     return store;

@@ -1,20 +1,25 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
     entry: [
-        path.join(__dirname, 'src/index.js')
+        'react-hot-loader/patch',
+        'webpack-hot-middleware/client',
+        './src/index.js'
     ],
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: 'http://localhost:8080/build'
     },
     devServer: { // настройки webpack-dev-server
         contentBase: path.join(__dirname, '/'),
         compress: true,
         stats: 'errors-only'
     },
+    devtool : 'eval',
     plugins: [
         new HtmlWebpackPlugin({ // плагин для  генерацияя шаблона в /build/
             title: 'Test',
@@ -28,7 +33,8 @@ module.exports = {
             filename: 'bundle.css',
             disable: false,
             allChunks: true
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin(),
     ],
     module: {
         rules: [
