@@ -10,7 +10,7 @@ const initialState = {
     data: [],
     error: null,
     inverse: false,
-    login: false
+    login: localStorage.getItem('login')
 }
 
 const counter = (state = initialState, action) => {
@@ -67,13 +67,13 @@ const counter = (state = initialState, action) => {
         case 'SIGN_IN':
             return {
                 ...state,
-                login: true
+                login: localStorage.getItem('login')
             }
 
         case 'SIGN_OUT':
             return {
                 ...state,
-                login: false
+                login: localStorage.getItem('login')
             }
 
         case 'SET_ACTIVE':

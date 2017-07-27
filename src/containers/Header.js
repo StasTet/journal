@@ -9,16 +9,17 @@ export default class Header extends Component {
         this.password = '1';
 
         this.state = {
-            login: false
+            login: localStorage.getItem('login')
         }
     }
 
     onSubmitHandler(event) {
         event.preventDefault();
         if (this.login == this.loginInput.value && this.password == this.passwordInput.value) {
+            localStorage.setItem('login', true);
             this.props.data.signIn();
             this.setState({
-                login: true
+                login: localStorage.getItem('login')
             })
         } else {
             console.log('error')
@@ -30,25 +31,28 @@ export default class Header extends Component {
     }
 
     onClickSignOut() {
+        localStorage.clear();
         this.props.data.signOut();
         this.setState({
-            login: false
+            login: localStorage.getItem('login')
         })
     }
 
     render() {
+        console.log(this.state.login)
         return (
             <div className="header">
                 <div className="wrapper">
                     <div className="login-form">
                         {
-                            !this.state.login 
-                            ?   <form onSubmit={this.onSubmitHandler.bind(this)}>
+                            this.state.login
+                            ?   <p>{this.login} <button onClick={this.onClickSignOut.bind(this)}>Sign out</button></p>
+                            :   <form onSubmit={this.onSubmitHandler.bind(this)}>
                                     <input type="text" ref={input => this.loginInput = input} />
                                     <input type="password" ref={input => this.passwordInput = input} />
                                     <button>Sign in</button>
                                 </form>
-                            :   <p>{this.login} <button onClick={this.onClickSignOut.bind(this)}>Sign out</button></p>
+                              
                         }
                     </div>
                 </div>
