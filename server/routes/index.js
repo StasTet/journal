@@ -1,9 +1,9 @@
 import express from 'express';
-// import Diary from './models/model.js';
+import Journal from '../model';
 
 const router = express.Router();
 
-const json = require('../../src/file/journal.json');
+// const json = require('../../src/file/journal.json');
 
 //middleware to use for all requests
 router.use((req, res, next) => {
@@ -36,13 +36,12 @@ router.route('/journal')
 
     // get all the diarys (accessed at GET http://localhost:8080/api/diary)
     .get((req, res) => {
-        res.json(json);
-        // Diary.find((err, diary) => {
-        //     if (err)
-        //         res.send(err);
-
-        //     res.json(diary);
-        // });
+        Journal.find((err, data) => {
+            console.log(data)
+            if (err)
+                res.send(err);
+            res.json(data);
+        });
     })
 
 // ----------------------------------------------------
