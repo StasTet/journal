@@ -13,7 +13,7 @@ export default class Main extends Component {
     }
 
     loadData() {
-        const url = '/src/file/people.json';
+        const url = '/api/journal';
 
         this.props.people.setData(url);
     }

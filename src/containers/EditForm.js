@@ -9,17 +9,16 @@ export default class EditForm extends Component {
     }
 
     render() {
-        console.log(this.props.state)
         return (
+            <div>
+                <div className="clear"></div>
                 <div>
-                    <div className="clear"></div>
-                    <div>
-                        <form onSubmit={this.onSubmitEdit.bind(this)}>
-                            <label>Edit mark for {this.props.data.name}: </label><input type="number" ref={input => this.markInput = input} placeholder={this.props.data.mark}/>
-                            <button>Save</button>
-                        </form>
-                    </div>
+                    <form onSubmit={this.onSubmitEdit.bind(this)}>
+                        <label>Edit mark for {this.props.data.name}: </label><input type="number" ref={input => this.markInput = input} placeholder={this.props.data.mark}/>
+                        <button>Save</button>
+                    </form>
                 </div>
+            </div>
         );
     }
 }

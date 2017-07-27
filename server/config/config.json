@@ -1,0 +1,11 @@
+{
+	"apiPrefix": "http://localhost:8080",
+	"port": 8080,
+	"db": {
+		"port" : 27017,
+		"host" : "tastbaar.mongo.xervo.io",
+		"user" : "admin",
+		"pass" : "admin",
+		"key"  : "Gutyje2g"
+	}
+}

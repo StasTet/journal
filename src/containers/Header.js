@@ -39,7 +39,6 @@ export default class Header extends Component {
     }
 
     render() {
-        console.log(this.state.login)
         return (
             <div className="header">
                 <div className="wrapper">
