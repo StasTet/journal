@@ -15,22 +15,27 @@ router.route('/journal')
     // create a diary (accessed at POST http://localhost:8080/api/diary)
     .post((req, res) => {
         // res.send('im the about page!');
-        // let diary = new Diary(); // create a new instance of the Diary model
+        let journal = new Journal(); // create a new instance of the Diary model
 
-        // diary.name = req.body.name; // set the diary name
-        // diary.text = req.body.text;
-        // diary.mark = req.body.mark;
-        // // console.log(req);
+        journal.id = req.body.id,
+        journal.name = req.body.name,
+        journal.surname = req.body.surname,
+        journal.age = req.body.age,
+        journal.phone = req.body.phone,
+        journal.mark = req.body.mark,
+        journal.active = req.body.active,
+        journal.visible = req.body.visible
+        // console.log(req);
 
-        // // save the diary and check for errors
-        // diary.save((err) => {
-        //     if (err)
-        //         res.send(err);
+        // save the diary and check for errors
+        journal.save((err) => {
+            if (err)
+                res.send(err);
 
-        //     res.json({
-        //         message: 'Diary created!'
-        //     });
-        // });
+            res.json({
+                message: 'Diary created!'
+            });
+        });
 
     })
 
