@@ -11,6 +11,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "mongodb": "^2.2.30",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
@@ -26,6 +27,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
     "css-loader": "^0.28.4",
     "eslint": "^4.2.0",
     "eslint-loader": "^1.9.0",
@@ -37,6 +39,7 @@
     "image-webpack-loader": "^3.3.1",
     "lodash": "^4.17.4",
     "method-override": "^2.3.9",
+    "mongoose": "^4.11.4",
     "morgan": "^1.8.2",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",

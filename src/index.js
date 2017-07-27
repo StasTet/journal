@@ -7,25 +7,6 @@ import { App } from './components/App';
 
 const store = configureStore();
 
-// class RootApp extends Component {
-//   render() {
-//     return (
-//         <Provider store={store}>
-//             <App />
-//         </Provider>
-//     );
-//   }
-// }
-
-// ReactDOM.render(
-//     <RootApp />,
-//     document.getElementById('root')
-// )
-
-// if (module.hot) {
-//   module.hot.accept();
-// }
-
 const render = () => {
     ReactDOM.render(
         <AppContainer>
