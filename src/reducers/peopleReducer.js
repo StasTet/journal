@@ -26,11 +26,7 @@ const counter = (state = initialState, action) => {
         case 'LOAD_DATA_OK':
             return {
                 ...state,
-                data: action.data.map((item) => ({ ...item,
-                    id: uniqueId(),
-                    active: false,
-                    visible: true
-                })),
+                data: action.data,
                 loading: false
             }
 
@@ -80,7 +76,7 @@ const counter = (state = initialState, action) => {
             return {
                 ...state,
                 data: state.data.map((item, index) => {
-                    if (item.id !== action.payload) {
+                    if (item._id !== action.payload) {
                         return {
                             ...item,
                             active: false
@@ -94,7 +90,7 @@ const counter = (state = initialState, action) => {
             }
 
         case 'SET_MARK':
-            const currentIndex = findIndex(state.data, (obj) => obj.id == action.id);
+            const currentIndex = findIndex(state.data, (obj) => obj._id == action.id);
 
             return {
                 ...state,

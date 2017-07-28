@@ -17,7 +17,6 @@ router.route('/journal')
         // res.send('im the about page!');
         let journal = new Journal(); // create a new instance of the Diary model
 
-        journal.id = req.body.id,
         journal.name = req.body.name,
         journal.surname = req.body.surname,
         journal.age = req.body.age,
@@ -42,7 +41,6 @@ router.route('/journal')
     // get all the diarys (accessed at GET http://localhost:8080/api/diary)
     .get((req, res) => {
         Journal.find((err, data) => {
-            console.log(data)
             if (err)
                 res.send(err);
             res.json(data);

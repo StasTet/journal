@@ -4,7 +4,7 @@ export default class EditForm extends Component {
 
     onSubmitEdit(event) {
         event.preventDefault();
-        this.props.state.setMark(this.props.data.id, this.markInput.value);
+        this.props.state.setMark(this.props.data._id, this.markInput.value);
         this.markInput.value = '';
     }
 

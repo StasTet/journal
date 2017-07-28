@@ -11,7 +11,7 @@ export default class FullInformation extends Component {
 
                 {currentItem !== undefined &&
                 <ul>
-                    <li>ID - {currentItem.id}</li>
+                    <li>ID - {currentItem._id.substr(4,4)}</li>
                     <li>Name = {currentItem.name}</li>
                     <li>Surname - {currentItem.surname}</li>
                     <li>Age - {currentItem.age}</li>

@@ -23,7 +23,7 @@ export default class Main extends Component {
     }
 
     onClickRow(row) {
-        this.props.people.showActive(row.id);
+        this.props.people.showActive(row._id);
     }
 
     onChangeInput(value) {

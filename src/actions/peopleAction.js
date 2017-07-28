@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-export const setData = (url) => {
+import { getJournal } from '../api';
+
+export const setData = () => {
   return (dispatch) => {
 
     dispatch({
@@ -9,7 +11,7 @@ export const setData = (url) => {
     });
 
     axios
-      .get(url)
+      .get(getJournal())
       .then((res) => {
         dispatch({
           type: 'LOAD_DATA_OK',

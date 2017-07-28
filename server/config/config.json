@@ -3,9 +3,7 @@
 	"port": 8080,
 	"db": {
 		"port" : 27017,
-		"host" : "tastbaar.mongo.xervo.io",
-		"user" : "admin",
-		"pass" : "admin",
-		"key"  : "Gutyje2g"
+		"host" : "localhost",
+		"name" : "journal"
 	}
 }
