@@ -4,10 +4,14 @@ import { apiPrefix } from '../../server/config/config.json';
         return `${apiPrefix}/api/journal`;
     }
 
-    // export const = createJournal = (data) => {
-    //     return axios.post(`${apiPrefix}/api/journal`, data);
-    // },
+    export const updateItem = (item_id) => {
+        return `${apiPrefix}/api/journal/${item_id}`;
+    }
 
-    // export const = deleteJournal = (diary_id) => {
-    //     return axios.delete(`${apiPrefix}/api/journal/${journal_id}`);
-    // }
+    export const createItem= (data) => {
+        return `${apiPrefix}/api/journal`;
+    }
+
+    export const deleteItem = (item_id) => {
+        return `${apiPrefix}/api/journal/${item_id}`;
+    }

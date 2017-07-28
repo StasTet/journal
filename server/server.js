@@ -8,8 +8,8 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import wpConfig from '../webpack.config.js'
 import webpack from 'webpack';
-import cors from 'cors';
 
+import cors from 'cors';
 import methodOverride from 'method-override';
 import config from './config/config.json';
 import { setUpConnection } from './config/db';
@@ -28,9 +28,7 @@ export const startServer = () => {
 		publicPath: wpConfig.output.publicPath
 	}));
 	
-	app.use(webpackHotMiddleware(compiler, {
-		log: false
-	}));
+	app.use(webpackHotMiddleware(compiler));
 
 	app.use(express.static(path.join('build')));
 	app.use(morgan('dev'));

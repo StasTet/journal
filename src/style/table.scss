@@ -12,6 +12,7 @@ table {
         }
         td {
             border: 1px solid black;
+            widows: 20%;
         }
     }
     tr:hover {
@@ -19,5 +20,8 @@ table {
     }
     .search {
         margin: 5px;
+    }
+    .hidden {
+        display: none;
     }
 }

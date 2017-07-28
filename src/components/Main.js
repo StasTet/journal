@@ -13,9 +13,7 @@ export default class Main extends Component {
     }
 
     loadData() {
-        const url = '/api/journal';
-
-        this.props.people.setData(url);
+        this.props.people.setData();
     }
 
     onClickHeader(cell) {

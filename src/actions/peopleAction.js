@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getJournal } from '../api';
+import { getJournal, updateItem, deleteItem, createItem } from '../api';
 
 export const setData = () => {
   return (dispatch) => {
@@ -60,10 +60,52 @@ export const showActive = (id) => {
   }
 }
 
-export const setMark = (id, mark) => {
+export const setMark = (id, data) => {
+
+  axios.put(updateItem(id), { mark: data })
+
   return {
     type: 'SET_MARK',
     id,
-    mark
+    data
+  }
+}
+
+export const addItem = (data) => {
+
+  return (dispatch) => {
+      axios.post(createItem(data), {
+        name: data.name,
+        surname: data.surname,
+        age: data.age,
+        phone: data.phone,
+        mark: data.mark,
+        active: data.active,
+        visible: data.visible
+      })
+      .then((res) => {
+        axios.get(createItem(data))
+          .then((res) => {
+            const resData = res.data[res.data.length-1]
+
+            dispatch({
+              type: 'ADD_ITEM',
+              payload: resData
+            })
+          })
+          .catch(console.error())
+
+      })
+      .catch(console.error())
+  }
+}
+
+export const delItem = (id) => {
+
+  axios.delete(deleteItem(id));
+
+  return {
+    type: 'DELETE_ITEM',
+    id
   }
 }

@@ -15,6 +15,8 @@ const initialState = {
 
 const counter = (state = initialState, action) => {
 
+    const currentIndex = findIndex(state.data, (obj) => obj._id == action.id);
+
     switch (action.type) {
         case 'LOAD_DATA_REQUESTED':
             return {
@@ -90,8 +92,6 @@ const counter = (state = initialState, action) => {
             }
 
         case 'SET_MARK':
-            const currentIndex = findIndex(state.data, (obj) => obj._id == action.id);
-
             return {
                 ...state,
                 data: state.data.map((item, index) => {
@@ -100,9 +100,27 @@ const counter = (state = initialState, action) => {
                     }
                     return {
                         ...item,
-                        mark: action.mark
+                        mark: action.data
                     };
                 })
+            }
+
+        case 'ADD_ITEM':
+            return {
+                ...state,
+                data: [
+                    ...state.data.slice(0),
+                    action.payload
+                ]
+            }
+
+        case 'DELETE_ITEM':
+            return {
+                ...state,
+                data: [
+                    ...state.data.slice(0, currentIndex),
+                    ...state.data.slice(currentIndex + 1)
+                ]
             }
 
         default:

@@ -3,19 +3,19 @@ import Journal from '../model';
 
 const router = express.Router();
 
-// const json = require('../../src/file/journal.json');
-
 //middleware to use for all requests
 router.use((req, res, next) => {
     console.log('Something is happening.');
     next(); // make sure we go to the next routes and don't stop here
 });
 
+
+
 router.route('/journal')
-    // create a diary (accessed at POST http://localhost:8080/api/diary)
+    // create a journal (accessed at POST http://localhost:8080/api/journal)
     .post((req, res) => {
-        // res.send('im the about page!');
-        let journal = new Journal(); // create a new instance of the Diary model
+        // create a new instance of the Journal model
+        let journal = new Journal();
 
         journal.name = req.body.name,
         journal.surname = req.body.surname,
@@ -24,21 +24,21 @@ router.route('/journal')
         journal.mark = req.body.mark,
         journal.active = req.body.active,
         journal.visible = req.body.visible
-        // console.log(req);
 
-        // save the diary and check for errors
+        // save the journal and check for errors
         journal.save((err) => {
             if (err)
                 res.send(err);
 
             res.json({
-                message: 'Diary created!'
+                message: 'Journal created!'
             });
+            // console.log(res)
         });
 
     })
 
-    // get all the diarys (accessed at GET http://localhost:8080/api/diary)
+    // get all the journals (accessed at GET http://localhost:8080/api/journal)
     .get((req, res) => {
         Journal.find((err, data) => {
             if (err)
@@ -50,49 +50,48 @@ router.route('/journal')
 // ----------------------------------------------------
 
 router.route('/journal/:journal_id')
-    // get the diary with that id (accessed at GET http://localhost:8080/api/diary/:diary_id)
+    // get the journal with that id (accessed at GET http://localhost:8080/api/journal/:journal_id)
     .get((req, res) => {
-        // Diary.findById(req.params.diary_id, (err, diary) => {
-        //     if (err)
-        //         res.send(err);
-        //     res.json(diary);
-        // });
+       Journal.findById(req.params.journal_id, (err, data) => {
+            if (err)
+                res.send(err);
+            res.json(data);
+        });
     })
 
     .put((req, res) => {
-        // use our diary model to find the diary we want
-        // Diary.findById(req.params.diary_id, (err, diary) => {
+        // use our journal model to find the journal we want
+        Journal.findById(req.params.journal_id, (err, data) => {
 
-        //     if (err)
-        //         res.send(err);
+            if (err)
+                res.send(err);
 
-        //     diary.name = req.body.name; // update the diarys info
-        //     diary.text = req.body.text;
-        //     diary.mark = req.body.mark;
+            data.mark = req.body.mark,
 
-        //     // save the diary
-        //     diary.save((err) => {
-        //         if (err)
-        //             res.send(err);
+            // save the journal
+            data.save((err) => {
+                if (err)
+                    res.send(err);
 
-        //         res.json({
-        //             message: 'Diary updated!'
-        //         });
-        //     });
-        // })
+                res.json({
+                    message: 'Journal updated!'
+                });
+            });
+        })
     })
 
     .delete((req, res) => {
-        // Diary.remove({
-        //     _id: req.params.diary_id
-        // }, (err, diary) => {
-        //     if (err)
-        //         res.send(err);
 
-        //     res.json({
-        //         message: 'Successfully deleted'
-        //     });
-        // });
+        Journal.remove({
+            _id: req.params.journal_id
+        }, (err, data) => {
+            if (err)
+                res.send(err);
+
+            res.json({
+                message: 'Successfully deleted'
+            });
+        });
     })
 
     export default router;
