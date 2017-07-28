@@ -5,8 +5,9 @@ export default class EditForm extends Component {
         super(props);
 
         this.state = {
-            showPanel: false
+            showPanel: true
         }
+
     }
 
     onSubmitEdit(event) {

@@ -9,8 +9,6 @@ router.use((req, res, next) => {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-
-
 router.route('/journal')
     // create a journal (accessed at POST http://localhost:8080/api/journal)
     .post((req, res) => {

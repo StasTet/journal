@@ -15,7 +15,8 @@ table {
             widows: 20%;
         }
     }
-    tr:hover {
+    tr:hover,
+    tr.active {
         background-color: #ccc
     }
     .search {

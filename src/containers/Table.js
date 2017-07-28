@@ -56,7 +56,7 @@ export default class Table extends Component {
         const table = this.props.data.map((row) =>{
             if (row.visible) {
                 return (
-                    <tr key={row._id} onClick={() => {this.props.onClickRow(row);this.onRow(row)}}>
+                    <tr key={row._id} onClick={() => {this.props.onClickRow(row);this.onRow(row)}} className={(row.active) ? 'active' : 'not-active'}>
                         {
                             Object.keys(row).filter(item => this.showRows.indexOf(item) !== -1).map((cell) => {
                                 return <td key={row._id + '' + cell}>{row[cell]}</td>
