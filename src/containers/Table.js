@@ -40,7 +40,7 @@ export default class Table extends Component {
 
     render() {
         const headTable = this.props.data.map((item, index) => {
-            if (index == 1) {
+            if (index == 0) {
                 return (
                     <tr key={uniqueId()}>
                         {

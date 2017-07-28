@@ -34,10 +34,6 @@ export default class AddItem extends Component {
                 <div><label>Edit age : </label><input type="number" ref={input => this.ageInput = input} placeholder="Add age" required/></div>
                 <div><label>Edit phone : </label><input type="text" ref={input => this.phoneInput = input} placeholder="Add phone" required/></div>
                 <div><label>Edit mark : </label><input type="number" ref={input => this.markInput = input} placeholder="Add mark" required/></div>
-                 {/* <div className="hidden1">
-                    <div><label>Acive : </label><input type="text" value={false}/></div>
-                    <div><label>Visible : </label><input type="text" value={true}/></div>
-                </div>  */}
                 <button>Save</button>
             </form>
             

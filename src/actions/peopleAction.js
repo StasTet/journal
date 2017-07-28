@@ -84,6 +84,7 @@ export const addItem = (data) => {
         visible: data.visible
       })
       .then((res) => {
+        
         axios.get(createItem(data))
           .then((res) => {
             const resData = res.data[res.data.length-1]

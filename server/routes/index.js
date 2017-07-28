@@ -17,14 +17,14 @@ router.route('/journal')
         // create a new instance of the Journal model
         let journal = new Journal();
 
-        journal.name = req.body.name,
-        journal.surname = req.body.surname,
-        journal.age = req.body.age,
-        journal.phone = req.body.phone,
-        journal.mark = req.body.mark,
+        journal.visible = req.body.visible,
         journal.active = req.body.active,
-        journal.visible = req.body.visible
-
+        journal.mark = req.body.mark,
+        journal.phone = req.body.phone,
+        journal.age = req.body.age,
+        journal.surname = req.body.surname,
+        journal.name = req.body.name
+        
         // save the journal and check for errors
         journal.save((err) => {
             if (err)
