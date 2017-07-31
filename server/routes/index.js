@@ -28,13 +28,14 @@ router.route('/journal')
             // create a new instance of the Journal model
         const journal = new Journal();
 
-        journal.visible = req.body.visible;
-        journal.active = req.body.active;
-        journal.mark = req.body.mark;
-        journal.phone = req.body.phone;
-        journal.age = req.body.age;
-        journal.surname = req.body.surname;
-        journal.name = req.body.name;
+        Object.assign(journal, req.body)
+        // journal.visible = req.body.visible;
+        // journal.active = req.body.active;
+        // journal.mark = req.body.mark;
+        // journal.phone = req.body.phone;
+        // journal.age = req.body.age;
+        // journal.surname = req.body.surname;
+        // journal.name = req.body.name;
         
         // save the journal and check for errors
         const data = await journal.save()
@@ -55,7 +56,6 @@ router.route('/journal')
         //     .catch((err) => {
         //         res.send(err);
         //     })
-
     }))
 
     // get all the journals (accessed at GET http://localhost:8080/api/journal)
@@ -108,10 +108,9 @@ router.route('/journal/:id')
         })
 
         data.mark = req.body.mark;
-        data.save( async () => {
-            await res.json({
-                message: 'Journal updated!'
-            })
+        await data.save();
+        res.json({
+            message: 'Journal updated!'
         })
 
         // Promise
@@ -156,7 +155,6 @@ router.route('/journal/:id')
         // .catch((err) => {
         //     res.send(err)
         // })
-
     }))
 
     export default router;
