@@ -44,6 +44,11 @@ export const startServer = () => {
     
 	app.use('/api', router);
 
+ 	app.use('*', (req, res) => {
+       	res.status(404);
+    	res.send('<h1>Page Not Found</h1><p>Go to <a href="/">main page</a></p>');
+    });
+
 	app.listen(config.port);
     console.log(`Server is up and running on port ${config.port}`);
 }

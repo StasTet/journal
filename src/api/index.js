@@ -8,7 +8,7 @@ import { apiPrefix } from '../../server/config/config.json';
         return `${apiPrefix}/api/journal/${item_id}`;
     }
 
-    export const createItem= (data) => {
+    export const createItem= () => {
         return `${apiPrefix}/api/journal`;
     }
 

@@ -62,51 +62,56 @@ export const showActive = (id) => {
 
 export const setMark = (id, data) => {
 
-  axios.put(updateItem(id), { mark: data })
+  return (dispatch) => {
+    axios.put(updateItem(id), { mark: data })
+    .then((res) => {
+      
+      dispatch({
+        type: 'SET_MARK',
+        id,
+        data
+      })
 
-  return {
-    type: 'SET_MARK',
-    id,
-    data
+    })
+    .catch(console.error())
   }
+
 }
 
 export const addItem = (data) => {
 
   return (dispatch) => {
-      axios.post(createItem(data), {
-        name: data.name,
-        surname: data.surname,
-        age: data.age,
-        phone: data.phone,
-        mark: data.mark,
-        active: data.active,
-        visible: data.visible
-      })
-      .then((res) => {
-        
-        axios.get(createItem(data))
-          .then((res) => {
-            const resData = res.data[res.data.length-1]
 
-            dispatch({
-              type: 'ADD_ITEM',
-              payload: resData
-            })
-          })
-          .catch(console.error())
+    axios.post(createItem(), data)
+      .then((res) => {
+
+        dispatch({
+          type: 'ADD_ITEM',
+          payload: {
+            _id: res.data.id,
+            ...data
+          }
+        })
 
       })
       .catch(console.error())
+
   }
 }
 
 export const delItem = (id) => {
 
-  axios.delete(deleteItem(id));
+  return (dispatch) => {
 
-  return {
-    type: 'DELETE_ITEM',
-    id
+    axios.delete(deleteItem(id))
+      .then((res) => {
+
+        dispatch({
+            type: 'DELETE_ITEM',
+            id
+        })
+
+      })
+      .catch(console.error())
   }
 }
