@@ -13,6 +13,13 @@ export default class AddItem extends Component {
             mark: this.markInput.value,
             active: false,
             visible: true
+            // visible: true,
+            // active: false,
+            // mark: this.markInput.value,
+            // phone: this.phoneInput.value,
+            // age: this.ageInput.value,
+            // surname: this.surnameInput.value,
+            // name : this.nameInput.value,
         }
 
         this.props.state.addItem(data);

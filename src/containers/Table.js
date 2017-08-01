@@ -37,7 +37,7 @@ export default class Table extends Component {
             editPanel: false
         })
     }
-
+    
     render() {
         const headTable = this.props.data.map((item, index) => {
             if (index == 0) {
@@ -52,8 +52,8 @@ export default class Table extends Component {
                 )
             }
         });
-        
-        const table = this.props.data.map((row) =>{
+
+        const bodyTable = this.props.data.map((row) =>{
             if (row.visible) {
                 return (
                     <tr key={row._id} onClick={() => {this.props.onClickRow(row);this.onRow(row)}} className={(row.active) ? 'active' : 'not-active'}>
@@ -69,23 +69,29 @@ export default class Table extends Component {
 
         return (
             <div className="table">
-                <table>
-                     <thead>
-                        <tr>
-                            <td colSpan="5">
-                                <input 
-                                    type="text"
-                                    placeholder="Search people by surname"
-                                    className="search"
-                                    ref={input => this.textInput = input} 
-                                    onChange={() => this.props.onChangeInput(this.textInput.value)}
-                                />
-                            </td>
-                        </tr>
-                        {headTable}
-                    </thead>
-                    <tbody>{table}</tbody>
-                </table>
+                {
+                    (this.props.data.length > 0)
+                    ?   <table>
+                            <thead>
+                                <tr>
+                                    <td colSpan="5">
+                                        <input 
+                                            type="text"
+                                            placeholder="Search people by surname"
+                                            className="search"
+                                            ref={input => this.textInput = input} 
+                                            onChange={() => this.props.onChangeInput(this.textInput.value)}
+                                        />
+                                    </td>
+                                </tr>
+                                {headTable}
+                            </thead>
+                            <tbody>{bodyTable}</tbody>
+                        </table>
+
+                    :   <p>Journal empty!</p>
+                }
+
 
                 {
                     (this.props.login) && <p><button onClick={this.onClickAdditem.bind(this)}>Add new people</button></p>
@@ -93,19 +99,19 @@ export default class Table extends Component {
 
                 {
                     (this.state.addPanel) && 
-                    <AddForm 
-                        state={this.props.state} 
-                        localState={this.localState.bind(this)}
-                    />
+                        <AddForm 
+                            state={this.props.state} 
+                            localState={this.localState.bind(this)}
+                        />
                 }
 
                 {
-                    (this.props.login && this.row != null && this.state.editPanel) && 
-                    <EditForm 
-                        data={this.row} 
-                        state={this.props.state} 
-                        localState={this.localState.bind(this)} 
-                    />
+                    (this.props.login && this.row != null && this.state.editPanel && this.props.data.length > 0) && 
+                        <EditForm 
+                            data={this.row} 
+                            state={this.props.state} 
+                            localState={this.localState.bind(this)} 
+                        />
                 }
             </div>
         );

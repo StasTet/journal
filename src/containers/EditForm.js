@@ -4,9 +4,9 @@ export default class EditForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            showPanel: true
-        }
+        // this.state = {
+        //     showPanel: true
+        // }
 
     }
 

@@ -84,13 +84,19 @@ export const addItem = (data) => {
 
     axios.post(createItem(), data)
       .then((res) => {
-
         dispatch({
-          type: 'ADD_ITEM',
-          payload: {
-            _id: res.data.id,
-            ...data
-          }
+            type: 'ADD_ITEM',
+            payload: {
+                _id: res.data.id,
+                ...data
+                // name: data.name,
+                // surname: data.surname,
+                // age: data.age,
+                // phone: data.phone,
+                // mark:data.mark,
+                // active:data.active,
+                // visible:data.visible
+            }
         })
 
       })

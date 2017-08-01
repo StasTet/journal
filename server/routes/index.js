@@ -28,14 +28,15 @@ router.route('/journal')
             // create a new instance of the Journal model
         const journal = new Journal();
 
-        Object.assign(journal, req.body)
-        // journal.visible = req.body.visible;
-        // journal.active = req.body.active;
-        // journal.mark = req.body.mark;
-        // journal.phone = req.body.phone;
-        // journal.age = req.body.age;
-        // journal.surname = req.body.surname;
-        // journal.name = req.body.name;
+        // Object.assign(journal, req.body)
+
+        journal.visible = req.body.visible;
+        journal.active = req.body.active;
+        journal.mark = req.body.mark;
+        journal.phone = req.body.phone;
+        journal.age = req.body.age;
+        journal.surname = req.body.surname;
+        journal.name = req.body.name;
         
         // save the journal and check for errors
         const data = await journal.save()
