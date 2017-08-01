@@ -79,7 +79,7 @@ export const setMark = (id, data) => {
 }
 
 export const addItem = (data) => {
-    console.log(data)
+    
     return (dispatch) => {
 
         axios.post(createItem(), data)

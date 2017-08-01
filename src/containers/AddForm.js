@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { errorMessages } from '../validation/errorMessages';
+import * as constant from '../constants/form';
 
 class AddItem extends Component {
 
@@ -91,13 +93,13 @@ const validate = (values) => {
 
     if (!values.name) {
         errors.name = 'Required'
-    } else if (values.name.length > 15) {
+    } else if (values.name.length > constant.min_length_name) {
         errors.name = 'Must be 15 characters or less'
     }
 
     if (!values.surname) {
         errors.surname = 'Required'
-    } else if (values.surname.length > 15) {
+    } else if (values.surname.length > constant.min_length_surname) {
         errors.surname = 'Must be 15 characters or less'
     }
     // if (!values.email) {
@@ -110,13 +112,13 @@ const validate = (values) => {
         errors.age = 'Required'
     } else if (isNaN(Number(values.age))) {
         errors.age = 'Must be a number'
-    } else if (Number(values.age) < 8) {
+    } else if (Number(values.age) < constant.min_age) {
         errors.age = 'Sorry, you must be at least more then 8 years old'
     }
 
     if (!values.phone) {
         errors.phone = 'Required'
-    } else if (values.phone.length < 6 && values.phone.length > 11) {
+    } else if (values.phone.length < constant.min_length_phone && values.phone.length > constant.max_length_phone) {
         errors.phone = 'Must be more then 6 and less then 11 characters'
     }
 
@@ -124,27 +126,14 @@ const validate = (values) => {
         errors.mark = 'Required'
     } else if (isNaN(Number(values.mark))) {
         errors.mark = 'Must be a number'
-    } else if (Number(values.age) <= 5) {
+    } else if (Number(values.mark) > constant.max_mark) {
         errors.mark = 'Sorry, mark must be less then 5'
     }
 
     return errors
 }
 
-
-    // const warn = (values) => {
-    //     const warnings = {}
-
-    //     if (values.age < 8) {
-    //         warnings.age = 'Hmm, you seem a bit young...'
-    //     }
-    //     return warnings
-    // }
-
-
-
 export default reduxForm({
     form: 'addItem', // a unique identifier for this form
     validate, // <--- validation function given to redux-form
-    // warn // <--- warning function given to redux-form
 })(AddItem)

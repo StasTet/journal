@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { max_mark } from '../constants/form';
 
 class EditForm extends Component {
 
@@ -19,7 +20,7 @@ class EditForm extends Component {
             <div>
                 <label>Edit mark for {this.props.data.name}</label>
                 <input {...input} placeholder={label} type={type} className="form-control" />
-                {touched && ((error && <span className="label label-danger">{error}</span>) || (warning && <span className="label label-warning">{warning}</span>))}
+                {touched && ((error && <span className="label label-danger">{error}</span>))}
             </div>
         )
 
@@ -57,7 +58,7 @@ const validate = (values) => {
         errors.mark = 'Required'
     } else if (isNaN(Number(values.mark))) {
         errors.mark = 'Must be a number'
-    } else if (Number(values.age) <= 5) {
+    } else if (Number(values.mark) > max_mark) {
         errors.mark = 'Sorry, mark must be less then 5'
     }
 
@@ -65,6 +66,6 @@ const validate = (values) => {
 }
 
 export default reduxForm({
-    form: 'editItem', // a unique identifier for this form
-    validate, // <--- validation function given to redux-form
+    form: 'editItem',
+    validate,
 })(EditForm)
