@@ -51,6 +51,14 @@ module.exports = {
                 use: 'babel-loader'
             },
             {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader',
+                    publicPath: '/build'
+                })
+            },
+            {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
@@ -63,6 +71,12 @@ module.exports = {
                 use: [
                     'file-loader?name=[name].[ext]&outputPath=images/', // размещение изображений в /build/images
                     'image-webpack-loader' // оптимизация изображений
+                ]
+            },
+            {
+                test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                use: [
+                    'file-loader?name=[name].[ext]&outputPath=fonts/' // размещение шрифтов в /build/fonts
                 ]
             }
         ]

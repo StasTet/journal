@@ -14,7 +14,9 @@ export default class Table extends Component {
 
         this.state = {
             addPanel: false,
-            editPanel: false
+            editPanel: false,
+            addBtn: true,
+            delBtn: true
         }
     }
 
@@ -27,14 +29,24 @@ export default class Table extends Component {
 
     onClickAdditem() {
         this.setState({
-            addPanel: true
+            addPanel: true,
+            addBtn: false
+        })
+    }
+
+    onClickAdditemClose() {
+        this.setState({
+            addPanel: false,
+            addBtn: true
         })
     }
 
     localState() {
         this.setState({
             addPanel: false,
-            editPanel: false
+            editPanel: false,
+            addBtn: true,
+            delBtn: false
         })
     }
     
@@ -56,7 +68,7 @@ export default class Table extends Component {
         const bodyTable = this.props.data.map((row) =>{
             if (row.visible) {
                 return (
-                    <tr key={row._id} onClick={() => {this.props.onClickRow(row);this.onRow(row)}} className={(row.active) ? 'active' : 'not-active'}>
+                    <tr key={row._id} onClick={() => {this.props.onClickRow(row);this.onRow(row)}} className={(row.active) ? 'info' : 'not-active'}>
                         {
                             Object.keys(row).filter(item => this.showRows.indexOf(item) !== -1).map((cell) => {
                                 return <td key={row._id + '' + cell}>{row[cell]}</td>
@@ -67,14 +79,24 @@ export default class Table extends Component {
             }
         });
 
+        const addItem = () => {
+            if (this.props.login && this.state.addBtn) {
+                return <div className="col-lg-12"><button onClick={this.onClickAdditem.bind(this)} className="btn">Add new people</button></div>
+            }
+            if (this.props.login) {
+                return <div className="col-lg-12"><button onClick={this.onClickAdditemClose.bind(this)} className="btn">Close</button></div>
+            }
+            
+        }
+
         return (
-            <div className="table">
+            <div className="container row col-lg-9 ">
                 {
                     (this.props.data.length > 0)
-                    ?   <table>
+                    ?   <table className="table table-bordered table-striped table-hover table-condensed">
                             <thead>
                                 <tr>
-                                    <td colSpan="5">
+                                    <td colSpan="5" className="panel-heading">
                                         <input 
                                             type="text"
                                             placeholder="Search people by surname"
@@ -94,13 +116,13 @@ export default class Table extends Component {
 
 
                 {
-                    (this.props.login) && <p><button onClick={this.onClickAdditem.bind(this)}>Add new people</button></p>
+                    addItem()
                 }
 
                 {
                     (this.state.addPanel) && 
                         <AddForm 
-                            state={this.props.state} 
+                            state={this.props.state}
                             localState={this.localState.bind(this)}
                         />
                 }

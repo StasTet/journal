@@ -1,12 +1,9 @@
-.header {
-    width: 100%;
+.container-fluid {
     height: 50px;
     background-color: #08abc8;
     display: flex;
     align-items: center; 
-    .wrapper {
-        width: 960px;
-        margin: 0 auto;
+    .container {
         .login-form {
             float: right;
             form {

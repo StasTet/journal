@@ -1,28 +1,8 @@
 table {
-    margin: 0 auto;
-    width: 100%;
-    border-collapse: collapse;
     tr {
-        text-align: center;
-        cursor: pointer;
-        th {
-            font-size: 16px;
-            border: 1px solid black;
-            text-transform: capitalize;
-        }
+        th,
         td {
-            border: 1px solid black;
-            width: 20%;
+            text-align: center;
         }
-    }
-    tr:hover,
-    tr.active {
-        background-color: #ccc
-    }
-    .search {
-        margin: 5px;
-    }
-    .hidden {
-        display: none;
     }
 }

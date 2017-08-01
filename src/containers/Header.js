@@ -40,16 +40,16 @@ export default class Header extends Component {
 
     render() {
         return (
-            <div className="header">
-                <div className="wrapper">
+            <div className="container-fluid">
+                <div className="container">
                     <div className="login-form">
                         {
                             this.state.login
-                            ?   <p>{this.login} <button onClick={this.onClickSignOut.bind(this)}>Sign out</button></p>
-                            :   <form onSubmit={this.onSubmitHandler.bind(this)}>
-                                    <input type="text" ref={input => this.loginInput = input} />
-                                    <input type="password" ref={input => this.passwordInput = input} />
-                                    <button>Sign in</button>
+                            ?   <p>{this.login} <button onClick={this.onClickSignOut.bind(this)} className="btn">Sign out</button></p>
+                            :   <form onSubmit={this.onSubmitHandler.bind(this)} className="form-inline">
+                                    <input type="text" ref={input => this.loginInput = input} className="form-control" placeholder="login"/>
+                                    <input type="password" ref={input => this.passwordInput = input} className="form-control" placeholder="Password"/>
+                                    <button className="btn">Sign in</button>
                                 </form>
                               
                         }

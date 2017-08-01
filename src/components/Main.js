@@ -6,6 +6,9 @@ import Body from '../containers/Body';
 import FullInformation from '../containers/FullInformation';
 import Footer from '../containers/Footer';
 
+import 'bootstrap/dist/css/bootstrap.css'; 
+import 'bootstrap/dist/css/bootstrap-theme.css';
+
 export default class Main extends Component {
 
     componentDidMount() {
