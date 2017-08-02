@@ -14,6 +14,10 @@ class EditForm extends Component {
         this.props.localState();
     }
 
+    onHandlerCancelDelete() {
+        this.props.localState();
+    }
+
     render() {
         const { handleSubmit } = this.props;
         const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
@@ -30,7 +34,8 @@ class EditForm extends Component {
                 <p>
                     <button onClick={this.onHandlerDelete.bind(this)} className="btn btn-primary">
                         Delete <b>{this.props.data.name}</b>
-                    </button>
+                    </button>{' '}
+                    <button onClick={this.onHandlerCancelDelete.bind(this)} className="btn">Cancel</button>
                 </p>
                 <p className="help-block">... or edit the mark</p>
 

@@ -7,7 +7,7 @@ export default class FullInformation extends Component {
         const currentItem = this.props.data.data[this.props.index]
 
         return (
-            <div className="row col-lg-3">
+            <div className="col-xs-12 col-md-6 col-lg-3">
 
                 {currentItem !== undefined &&
                 <ul className="list-group">

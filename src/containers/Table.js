@@ -70,7 +70,7 @@ export default class Table extends Component {
         }
 
         return (
-            <div className="container row col-lg-9 ">
+            <div className="col-xs-12 col-md-6 col-lg-9">
                 {
                     (this.props.data.length > 0)
                     ?   <table className="table table-bordered table-striped table-hover table-condensed">
