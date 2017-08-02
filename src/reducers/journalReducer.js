@@ -13,7 +13,7 @@ const initialState = {
     login: localStorage.getItem('login')
 }
 
-const counter = (state = initialState, action) => {
+const journal = (state = initialState, action) => {
 
     const currentIndex = findIndex(state.data, (obj) => obj._id == action.id);
 
@@ -128,4 +128,4 @@ const counter = (state = initialState, action) => {
     }
 }
 
-export default counter;
+export default journal;

@@ -16,42 +16,43 @@ export default class Main extends Component {
     }
 
     loadData() {
-        this.props.people.setData();
+        this.props.journal.setData();
     }
 
     onClickHeader(cell) {
-        this.props.people.sortData(cell);
+        this.props.journal.sortData(cell);
     }
 
     onClickRow(row) {
-        this.props.people.showActive(row._id);
+        this.props.journal.showActive(row._id);
     }
 
     onChangeInput(value) {
-        this.props.people.searchData(value.toLowerCase());
+        this.props.journal.searchData(value.toLowerCase());
     }
 
     render() {
-        const index = findIndex(this.props.state.data, ['active', true])
+        const index = findIndex(this.props.stateJournal.data, ['active', true])
 
         return (
             <div>
                 <Header 
-                    data={this.props.people}
+                    data={this.props.journal}
                 />
                 
                 <Body>
                     <FullInformation 
-                        data={this.props.state} 
+                        data={this.props.stateJournal} 
                         index={index} 
                     />
                     <Table 
-                        data={this.props.state.data} 
+                        data={this.props.stateJournal.data} 
                         onClickHeader={this.onClickHeader.bind(this)} 
                         onClickRow={this.onClickRow.bind(this)}
                         onChangeInput={this.onChangeInput.bind(this)}
-                        login={this.props.state.login}
-                        state={this.props.people}
+                        login={this.props.stateJournal.login}
+                        state={this.props}
+                        stateUserForm={this.props.stateForm}
                     />
                 </Body>
 

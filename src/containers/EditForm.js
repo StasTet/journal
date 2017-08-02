@@ -43,7 +43,7 @@ class EditForm extends Component {
                             name="mark"
                             className="form-control"
                         />
-                        </div>
+                    </div>
                     <button className="btn btn-primary">Save</button>
                 </form>
             </div>

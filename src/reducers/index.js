@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import people from './peopleReducer'
+import journal from './journalReducer';
+import userForm from './formReducer';
 
 export default combineReducers({
-    people,
+    journal,
+    userForm,
     form : formReducer
 });

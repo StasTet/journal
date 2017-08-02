@@ -1,17 +1,20 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as peopleAction from '../actions/peopleAction';
+import * as journalAction from '../actions/journalAction';
+import * as formAction from '../actions/formAction';
 import Main from './Main';
 
 const mapStateToProps = (state) => {
     return {
-        state: state.people
+        stateJournal: state.journal,
+        stateForm: state.userForm
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        people: bindActionCreators(peopleAction, dispatch)
+        journal: bindActionCreators(journalAction, dispatch),
+        form: bindActionCreators(formAction, dispatch)
     }
 }
 

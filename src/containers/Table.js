@@ -11,43 +11,24 @@ export default class Table extends Component {
         this.showRows = ['name', 'surname', 'age', 'phone', 'mark']
 
         this.row = null;
-
-        this.state = {
-            addPanel: false,
-            editPanel: false,
-            addBtn: true,
-            delBtn: true
-        }
     }
 
     onRow(row) {
-        this.setState({
-            editPanel: true
-        })
         this.row = row;
+        this.props.state.form.showEditForm();
     }
 
     onClickAdditem() {
-        this.setState({
-            addPanel: true,
-            addBtn: false
-        })
+        this.props.state.form.showAddForm();
     }
 
     onClickAdditemClose() {
-        this.setState({
-            addPanel: false,
-            addBtn: true
-        })
+        this.props.state.form.hideAddForm();
     }
 
     localState() {
-        this.setState({
-            addPanel: false,
-            editPanel: false,
-            addBtn: true,
-            delBtn: false
-        })
+        this.props.state.form.hideAddForm();
+        this.props.state.form.hideEditForm();
     }
     
     render() {
@@ -80,13 +61,12 @@ export default class Table extends Component {
         });
 
         const addItem = () => {
-            if (this.props.login && this.state.addBtn) {
+            if (this.props.login && !this.props.stateUserForm.visible_addForm) {
                 return <div className="col-lg-12"><button onClick={this.onClickAdditem.bind(this)} className="btn">Add new people</button></div>
             }
-            if (this.props.login) {
+            if (this.props.login && this.props.stateUserForm.visible_addForm) {
                 return <div className="col-lg-12"><button onClick={this.onClickAdditemClose.bind(this)} className="btn">Close</button></div>
             }
-            
         }
 
         return (
@@ -120,18 +100,19 @@ export default class Table extends Component {
                 }
 
                 {
-                    (this.state.addPanel) && 
+                    (this.props.stateUserForm.visible_addForm) &&
                         <AddForm 
-                            state={this.props.state}
+                            state={this.props.state.journal}
                             localState={this.localState.bind(this)}
                         />
                 }
 
                 {
-                    (this.props.login && this.row != null && this.state.editPanel && this.props.data.length > 0) && 
+                    
+                    (this.props.login && this.row != null && this.props.data.length > 0 && this.props.stateUserForm.visible_editForm) &&
                         <EditForm 
                             data={this.row} 
-                            state={this.props.state} 
+                            state={this.props.state.journal} 
                             localState={this.localState.bind(this)} 
                         />
                 }

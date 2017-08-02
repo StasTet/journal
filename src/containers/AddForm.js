@@ -25,7 +25,7 @@ class AddItem extends Component {
             <div>
                 <label>{label}</label>
                 <input {...input} placeholder={label} type={type} className="form-control" />
-                {touched && ((error && <span className="label label-danger">{error}</span>) || (warning && <span className="label label-warning">{warning}</span>))}
+                 {touched && ((error && <span className="label label-danger">{error}</span>) || (warning && <span className="label label-warning">{warning}</span>))}
             </div>
         )
 
