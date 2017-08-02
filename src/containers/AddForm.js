@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { errorMessages } from '../validation/errorMessages';
-import * as constant from '../constants/form';
 
 class AddItem extends Component {
 
@@ -90,45 +89,12 @@ class AddItem extends Component {
 
 const validate = (values) => {
     const errors = {}
-
-    if (!values.name) {
-        errors.name = 'Required'
-    } else if (values.name.length > constant.min_length_name) {
-        errors.name = 'Must be 15 characters or less'
-    }
-
-    if (!values.surname) {
-        errors.surname = 'Required'
-    } else if (values.surname.length > constant.min_length_surname) {
-        errors.surname = 'Must be 15 characters or less'
-    }
-    // if (!values.email) {
-    //     errors.email = 'Required'
-    // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    //     errors.email = 'Invalid email address'
-    // }
-
-    if (!values.age) {
-        errors.age = 'Required'
-    } else if (isNaN(Number(values.age))) {
-        errors.age = 'Must be a number'
-    } else if (Number(values.age) < constant.min_age) {
-        errors.age = 'Sorry, you must be at least more then 8 years old'
-    }
-
-    if (!values.phone) {
-        errors.phone = 'Required'
-    } else if (values.phone.length < constant.min_length_phone && values.phone.length > constant.max_length_phone) {
-        errors.phone = 'Must be more then 6 and less then 11 characters'
-    }
-
-    if (!values.mark) {
-        errors.mark = 'Required'
-    } else if (isNaN(Number(values.mark))) {
-        errors.mark = 'Must be a number'
-    } else if (Number(values.mark) > constant.max_mark) {
-        errors.mark = 'Sorry, mark must be less then 5'
-    }
+    
+    errors.name = errorMessages.name.lengthName.validator(values.name);
+    errors.surname = errorMessages.surname.lengthSurname.validator(values.surname);
+    errors.age = errorMessages.age.lengthAge.validator(values.age);
+    errors.phone = errorMessages.phone.lengthPhone.validator(values.phone);
+    errors.mark = errorMessages.mark.lengthMark.validator(values.mark);
 
     return errors
 }
