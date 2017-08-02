@@ -1,11 +1,3 @@
-// export const errorMessages = {
-//     fieldName: {
-//         validationName: {
-//             validator: () => {/*your validator*/},
-//             message: ''
-//         }
-//     }
-// }
 import {
     min_length_name,
     min_length_surname,
