@@ -27,10 +27,10 @@ export default class Header extends Component {
 
         this.loginInput.value = '';
         this.passwordInput.value = '';
-
     }
 
-    onClickSignOut() {
+    onClickSignOut(event) {
+        event.preventDefault();
         localStorage.clear();
         this.props.data.signOut();
         this.setState({
@@ -45,7 +45,7 @@ export default class Header extends Component {
                     <div className="login-form">
                         {
                             this.state.login
-                            ?   <p>{this.login} <button onClick={this.onClickSignOut.bind(this)} className="btn">Sign out</button></p>
+                            ?   <form onSubmit={this.onClickSignOut.bind(this)} className="form-inline"><label>{this.login}</label> <button className="btn">Sign out</button></form>
                             :   <form onSubmit={this.onSubmitHandler.bind(this)} className="form-inline">
                                     <input type="text" ref={input => this.loginInput = input} className="form-control" placeholder="login"/>
                                     <input type="password" ref={input => this.passwordInput = input} className="form-control" placeholder="Password"/>
