@@ -6,8 +6,10 @@ import rootReducer from '../reducers';
 
 
 export const configureStore = (initialState) => {
-    const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk, logger)));
     
+    const enhancer = composeWithDevTools(applyMiddleware(thunk)); //logger
+    const store = createStore(rootReducer, initialState, enhancer);
+
     if (module.hot) {
         module.hot.accept('../reducers', () => {
             const nextRootReducer = require('../reducers');
