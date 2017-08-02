@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { errorMessages } from '../validation/errorMessages';
+import { validateField } from '../validation/errorMessages';
 
 class AddItem extends Component {
 
@@ -16,7 +16,7 @@ class AddItem extends Component {
         }
 
         this.props.state.addItem(data);
-        this.props.localState();
+        this.props.changeState();
     }
 
     render() {
@@ -31,7 +31,7 @@ class AddItem extends Component {
 
         return (
             <div className="col-lg-6">
-                <form onSubmit={handleSubmit(this.onSubmitEdit.bind(this))} className="form-horizontal container col-lg-12">
+                <form onSubmit={handleSubmit(this.onSubmitEdit.bind(this))} className="form-horizontal">
                     <p className="help-block">Add new people</p>
                     <div className="form-group col-lg-12">
                         <Field 
@@ -79,6 +79,8 @@ class AddItem extends Component {
                         />
                     </div>
                     <button className="btn btn-primary" type="submit">Save</button>
+                    {' '}
+                    <input type="button" className="btn" value="Cancel" onClick={() => this.props.changeState()}/>
                 </form>
             </div>
             
@@ -90,11 +92,17 @@ class AddItem extends Component {
 const validate = (values) => {
     const errors = {}
     
-    errors.name = errorMessages.name.lengthName.validator(values.name);
-    errors.surname = errorMessages.surname.lengthSurname.validator(values.surname);
-    errors.age = errorMessages.age.lengthAge.validator(values.age);
-    errors.phone = errorMessages.phone.lengthPhone.validator(values.phone);
-    errors.mark = errorMessages.mark.lengthMark.validator(values.mark);
+    const field = [
+        'name',
+        'surname',
+        'age',
+        'phone',
+        'mark'
+    ]
+
+    field.map((item) => {
+        errors[item] = validateField(item, values[item]);
+    })
 
     return errors
 }

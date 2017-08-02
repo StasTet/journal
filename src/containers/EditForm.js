@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { errorMessages } from '../validation/errorMessages';
+import { validateField } from '../validation/errorMessages';
 
 class EditForm extends Component {
 
     onSubmitEdit(values) {
         this.props.state.setMark(this.props.data._id, values.mark);
-        this.props.localState();
+        this.props.changeState();
     }
 
     onHandlerDelete() {
         this.props.state.delItem(this.props.data._id);
-        this.props.localState();
+        this.props.changeState();
     }
 
     onHandlerCancelDelete() {
-        this.props.localState();
+        this.props.changeState();
     }
 
     render() {
@@ -28,18 +28,20 @@ class EditForm extends Component {
             </div>
         )
 
-        return (
-            <div className="col-lg-6">
-                <p className="help-block">You may delete this item...</p>
-                <p>
-                    <button onClick={this.onHandlerDelete.bind(this)} className="btn btn-primary">
-                        Delete <b>{this.props.data.name}</b>
-                    </button>{' '}
-                    <button onClick={this.onHandlerCancelDelete.bind(this)} className="btn">Cancel</button>
-                </p>
-                <p className="help-block">... or edit the mark</p>
+        const renderDelBtn = () => {
+            return <div>
+                    <p className="help-block">You may delete this item...</p>
+                    <p>
+                        <input type="button" onClick={this.onHandlerDelete.bind(this)} className="btn btn-primary" value={'Delete ' + this.props.data.name} />
+                        {' '}
+                        <input type="button"onClick={this.onHandlerCancelDelete.bind(this)} className="btn" value="Cancel" />
+                    </p>
+                    <p className="help-block">... or edit the mark</p>
+                </div>
+        }
 
-                <form onSubmit={handleSubmit(this.onSubmitEdit.bind(this))} className="form-horizontal container col-lg-12">
+        const renderForm = () => {
+            return <form onSubmit={handleSubmit(this.onSubmitEdit.bind(this))} className="form-horizontal">
                     <div className="form-group col-lg-12">
                         <Field
                             component={renderField}
@@ -51,6 +53,12 @@ class EditForm extends Component {
                     </div>
                     <button className="btn btn-primary">Save</button>
                 </form>
+        }
+
+        return (
+            <div className="col-lg-6">
+                { renderDelBtn() }
+                { renderForm() }
             </div>
         );
     }
@@ -59,7 +67,13 @@ class EditForm extends Component {
 const validate = (values) => {
     const errors = {}
 
-    errors.mark = errorMessages.mark.lengthMark.validator(values.mark);
+    const field = [
+        'mark'
+    ]
+
+    field.map((item) => {
+        errors[item] = validateField(item, values[item]);
+    })
 
     return errors
 }

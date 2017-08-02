@@ -26,8 +26,11 @@ export default class Table extends Component {
         this.props.state.form.hideAddForm();
     }
 
-    localState() {
+    setStateAddForm() {
         this.props.state.form.hideAddForm();
+    }
+
+    setStateEditForm() {
         this.props.state.form.hideEditForm();
     }
     
@@ -60,20 +63,9 @@ export default class Table extends Component {
             }
         });
 
-        const addItem = () => {
-            if (this.props.login && !this.props.stateUserForm.visible_addForm) {
-                return <div className="col-lg-12"><button onClick={this.onClickAdditem.bind(this)} className="btn">Add new people</button></div>
-            }
-            if (this.props.login && this.props.stateUserForm.visible_addForm) {
-                return <div className="col-lg-12"><button onClick={this.onClickAdditemClose.bind(this)} className="btn">Close</button></div>
-            }
-        }
-
-        return (
-            <div className="col-xs-12 col-md-6 col-lg-9">
-                {
-                    (this.props.data.length > 0)
-                    ?   <table className="table table-bordered table-striped table-hover table-condensed">
+        const renderTable = () => {
+            if (this.props.data.length > 0) {
+                return <table className="table table-bordered table-striped table-hover table-condensed">
                             <thead>
                                 <tr>
                                     <td colSpan="5" className="panel-heading">
@@ -90,32 +82,42 @@ export default class Table extends Component {
                             </thead>
                             <tbody>{bodyTable}</tbody>
                         </table>
+            }
 
-                    :   <p>Journal empty!</p>
-                }
+            return <p>Journal empty!</p>
+        }
 
+        const addItem = () => {
+            if (this.props.login && !this.props.stateUserForm.visible_addForm) {
+                return <div className="col-lg-12"><input type="button" onClick={this.onClickAdditem.bind(this)} className="btn" value="Add new people" /></div>
+            }
+        }
 
-                {
-                    addItem()
-                }
+        const renderAddForm = () => {
+            if (this.props.stateUserForm.visible_addForm) {
+                return <AddForm 
+                        state={this.props.state.journal}
+                        changeState={this.setStateAddForm.bind(this)}
+                    />
+            }
+        }
 
-                {
-                    (this.props.stateUserForm.visible_addForm) &&
-                        <AddForm 
-                            state={this.props.state.journal}
-                            localState={this.localState.bind(this)}
-                        />
-                }
+        const renderEditForm = () => {
+            if (this.props.login && this.row != null && this.props.data.length > 0 && this.props.stateUserForm.visible_editForm) {
+                return <EditForm 
+                        data={this.row} 
+                        state={this.props.state.journal} 
+                        changeState={this.setStateEditForm.bind(this)} 
+                    />
+            }
+        }
 
-                {
-                    
-                    (this.props.login && this.row != null && this.props.data.length > 0 && this.props.stateUserForm.visible_editForm) &&
-                        <EditForm 
-                            data={this.row} 
-                            state={this.props.state.journal} 
-                            localState={this.localState.bind(this)} 
-                        />
-                }
+        return (
+            <div className="col-xs-12 col-md-6 col-lg-9">
+                { renderTable() }
+                { addItem() }
+                { renderAddForm() }
+                { renderEditForm() }
             </div>
         );
     }
