@@ -32,25 +32,21 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="container">
-                    <div className="login-form">
-                        {
-                            this.props.stateJournal.login
-                            ?   <form onSubmit={this.onClickSignOut.bind(this)} className="form-inline">
-                                    <label>{this.login}</label>{' '}
-                                    <button className="btn">Sign out</button>
-                                </form>
+            <div className="login-form">
+                {
+                    this.props.stateJournal.login
+                    ?   <form onSubmit={this.onClickSignOut.bind(this)} className="form-inline">
+                            <label>{this.login}</label>{' '}
+                            <button className="btn">Sign out</button>
+                        </form>
 
-                            :   <form onSubmit={this.onSubmitHandler.bind(this)} className="form-inline">
-                                    <input type="text" ref={input => this.loginInput = input} className="form-control" placeholder="login"/>{' '}
-                                    <input type="password" ref={input => this.passwordInput = input} className="form-control" placeholder="Password"/>{' '}
-                                    <button className="btn btn-primary">Sign in</button>
-                                </form>
-                        }
-                    </div> 
-                </div>
-            </div>
+                    :   <form onSubmit={this.onSubmitHandler.bind(this)} className="form-inline">
+                            <input type="text" ref={input => this.loginInput = input} className="form-control" placeholder="login"/>{' '}
+                            <input type="password" ref={input => this.passwordInput = input} className="form-control" placeholder="Password"/>{' '}
+                            <button className="btn btn-primary">Sign in</button>
+                        </form>
+                }
+            </div> 
         );
     }
 }

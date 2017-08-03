@@ -6,7 +6,11 @@ export default class Header extends Component {
 
     render() {
         return (
-            <LoginForm />
+            <div className="header container-fluid">
+                <div className="container">
+                    <LoginForm />
+                </div>
+            </div>
         );
     }
 }
