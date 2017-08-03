@@ -42,24 +42,28 @@ class FullInformation extends Component {
             <div className="col-xs-12 col-md-12 col-lg-12">
                 <p><Link to="/">Back to home</Link></p>
                 
-                <ul className="list-group">
-                    <li className="list-group-item">ID - {currentItem._id.substr(4,4)}</li>
-                    <li className="list-group-item">Name - {currentItem.name}</li>
-                    <li className="list-group-item">Surname - {currentItem.surname}</li>
-                    <li className="list-group-item">Age - {currentItem.age}</li>
-                    <li className="list-group-item">Phone - {currentItem.phone}</li>
-                    <li className="list-group-item">Mark - {currentItem.mark}</li>
-                </ul>
+                <div className="col-xs-12 col-md-12 col-lg-6">
+                    <ul className="list-group">
+                        <li className="list-group-item">ID - {currentItem._id.substr(4,4)}</li>
+                        <li className="list-group-item">Name - {currentItem.name}</li>
+                        <li className="list-group-item">Surname - {currentItem.surname}</li>
+                        <li className="list-group-item">Age - {currentItem.age}</li>
+                        <li className="list-group-item">Phone - {currentItem.phone}</li>
+                        <li className="list-group-item">Mark - {currentItem.mark}</li>
+                    </ul>
+                </div>
 
-                {
-                    this.props.stateJournal.login &&
-                        <Form
-                            data={currentItem}
-                            state={this.props.journal}
-                            formSubmitHandler={this.formSubmitHandler.bind(this)}
-                            form="editForm"
-                        />
-                }
+                <div className="col-xs-12 col-md-12 col-lg-6">
+                    {
+                        this.props.stateJournal.login &&
+                            <Form
+                                data={currentItem}
+                                state={this.props.journal}
+                                formSubmitHandler={this.formSubmitHandler.bind(this)}
+                                form="editForm"
+                            />
+                    }
+                </div>
                
             </div>
         );
