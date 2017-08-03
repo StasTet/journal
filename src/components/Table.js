@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { uniqueId } from 'lodash';
 import { Link } from 'react-router-dom';
-import DeleteButton from '../containers/DeleteButton';
+import { DeleteButton } from '../containers/DeleteButton';
 import Form from '../containers/Form';
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
@@ -36,7 +36,7 @@ class Table extends Component {
         this.props.journal.showActive(row._id);
     }
 
-    onChangeInput(e) {
+    searchInput(e) {
         this.props.journal.searchData(e.target.value.toLowerCase());
     }
 
@@ -44,16 +44,17 @@ class Table extends Component {
         this.props.form.showAddForm();
     }
 
-    onClickAdditemClose() {
-        this.props.form.hideAddForm();
-    }
-
-    setStateAddForm() {
+    setStateForm() {
         this.props.form.hideAddForm();
     }
 
     setStateDelBtn() {
         this.props.form.hideEditForm();
+    }
+
+    onHandlerDelete(id) {
+        this.props.journal.delItem(id);
+        this.setStateForm();
     }
 
     formSubmitHandler(values) {
@@ -68,7 +69,7 @@ class Table extends Component {
         }
 
         this.props.journal.addItem(data);
-        this.setStateAddForm();
+        this.setStateForm();
     }
 
     render() {
@@ -111,7 +112,7 @@ class Table extends Component {
                                             placeholder="Search people by surname"
                                             className="search"
                                             ref={input => this.textInput = input}
-                                            onChange={this.onChangeInput.bind(this)}
+                                            onChange={this.searchInput.bind(this)}
                                         />
                                     </td>
                                 </tr>
@@ -130,7 +131,7 @@ class Table extends Component {
 
         const addItem = () => {
             if (this.props.stateJournal.login && !this.props.stateForm.visible_addForm) {
-                return <div className="col-lg-12"><input type="button" onClick={this.onClickAdditem.bind(this)} className="btn" value="Add new people" /></div>
+                return <input type="button" onClick={this.onClickAdditem.bind(this)} className="btn" value="Add new people" />
             }
         }
 
@@ -138,15 +139,10 @@ class Table extends Component {
             if (this.props.stateForm.visible_addForm) {
                 return <Form
                             state={this.props.journal}
-                            changeState={this.setStateAddForm.bind(this)}
+                            changeState={this.setStateForm.bind(this)}
                             formSubmitHandler={this.formSubmitHandler.bind(this)}
                             form="addForm"
                         />
-                // return <AddForm
-                //             state={this.props.journal}
-                //             changeState={this.setStateAddForm.bind(this)}
-                //             formSubmitHandler={this.formSubmitHandler.bind(this)}
-                //         />
             }
         }
 
@@ -154,7 +150,7 @@ class Table extends Component {
             if (this.props.stateJournal.login && this.row != null && this.props.stateJournal.data.length > 0 && this.props.stateForm.visible_deleteBtn) {
                 return <DeleteButton
                             data={this.row} 
-                            state={this.props.journal} 
+                            onHandlerDelete={this.onHandlerDelete.bind(this)} 
                             changeState={this.setStateDelBtn.bind(this)} 
                         />
             }
