@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import EditForm from '../containers/EditForm'
+// import EditForm from '../containers/EditForm'
+import Form from '../containers/Form';
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
 
@@ -13,6 +14,20 @@ class FullInformation extends Component {
         this.active = null;
     }
    
+    formSubmitHandler(values) {
+        const data = {
+            name : values.name,
+            surname: values.surname,
+            age: values.age,
+            phone: values.phone,
+            mark: values.mark,
+            active: false,
+            visible: true
+        }
+
+        this.props.journal.editItem(this.active._id, data);
+    }
+
     render() {
 
         this.props.stateJournal.data.forEach((item) => {
@@ -42,9 +57,11 @@ class FullInformation extends Component {
                 
                 {
                     this.props.stateJournal.login &&
-                        <EditForm
+                        <Form
                             data={currentItem}
                             state={this.props.journal}
+                            formSubmitHandler={this.formSubmitHandler.bind(this)}
+                            form="editForm"
                         />
                 }
                

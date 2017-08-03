@@ -4,7 +4,12 @@ import { bindActionCreators } from 'redux';
 import { uniqueId } from 'lodash';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../containers/DeleteButton';
-import AddForm from '../containers/AddForm';
+
+
+// import AddForm from '../containers/AddForm';
+import Form from '../containers/Form';
+
+
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
 import '../style/table.scss';
@@ -52,10 +57,25 @@ class Table extends Component {
         this.props.form.hideAddForm();
     }
 
-    setStateEditForm() {
+    setStateDelBtn() {
         this.props.form.hideEditForm();
     }
-    
+
+    formSubmitHandler(values) {
+        const data = {
+            name : values.name,
+            surname: values.surname,
+            age: values.age,
+            phone: values.phone,
+            mark: values.mark,
+            active: false,
+            visible: true
+        }
+
+        this.props.journal.addItem(data);
+        this.setStateAddForm();
+    }
+
     render() {
         const headTable = this.props.stateJournal.data.map((item, index) => {
             if (index == 0) {
@@ -106,6 +126,10 @@ class Table extends Component {
                         </table>
             }
 
+            if (this.props.stateJournal.loading) {
+                return <p>Loading..</p>
+            }
+
             return <p>Journal empty!</p>
         }
 
@@ -117,10 +141,17 @@ class Table extends Component {
 
         const renderAddForm = () => {
             if (this.props.stateForm.visible_addForm) {
-                return <AddForm
+                return <Form
                             state={this.props.journal}
                             changeState={this.setStateAddForm.bind(this)}
+                            formSubmitHandler={this.formSubmitHandler.bind(this)}
+                            form="addForm"
                         />
+                // return <AddForm
+                //             state={this.props.journal}
+                //             changeState={this.setStateAddForm.bind(this)}
+                //             formSubmitHandler={this.formSubmitHandler.bind(this)}
+                //         />
             }
         }
 
@@ -129,7 +160,7 @@ class Table extends Component {
                 return <DeleteButton
                             data={this.row} 
                             state={this.props.journal} 
-                            changeState={this.setStateEditForm.bind(this)} 
+                            changeState={this.setStateDelBtn.bind(this)} 
                         />
             }
         }

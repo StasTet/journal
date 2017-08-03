@@ -15,13 +15,12 @@ export default class DeleteButton extends Component {
 
         const renderDelBtn = () => {
             return <div>
-                    <p className="help-block">You may delete this item...</p>
+                    <p className="help-block">You may delete this item</p>
                     <p>
                         <input type="button" onClick={this.onHandlerDelete.bind(this)} className="btn btn-primary" value={'Delete ' + this.props.data.name} />
                         {' '}
                         <input type="button"onClick={this.onHandlerCancelDelete.bind(this)} className="btn" value="Cancel" />
                     </p>
-                    {/* <p className="help-block">... or edit the mark</p> */}
                 </div>
         }
 

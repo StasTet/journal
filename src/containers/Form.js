@@ -1,38 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { uniqueId } from 'lodash';
 import { Field, reduxForm } from 'redux-form';
-import { validateField } from '../validation/errorMessages';
+import validate from '../validation/validate';
 
-class AddItem extends Component {
+const Form = (props) => {
 
-    onSubmitClick(values) {
-        const data = {
-            name : values.name,
-            surname: values.surname,
-            age: values.age,
-            phone: values.phone,
-            mark: values.mark,
-            active: false,
-            visible: true
-        }
+    const { handleSubmit, reset, formSubmitHandler } = props;
+    const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+        <div>
+            <label>{label}</label>
+            <input {...input} placeholder={label} type={type} className="form-control" />
+            {touched && (error && <span className="label label-danger">{error}</span>)}
+        </div>
+    )
 
-        this.props.state.addItem(data);
-        this.props.changeState();
-    }
-
-    render() {
-        const { handleSubmit } = this.props;
-        const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-            <div>
-                <label>{label}</label>
-                <input {...input} placeholder={label} type={type} className="form-control" />
-                 {touched && (error && <span className="label label-danger">{error}</span>)}
-            </div>
-        )
-
+    const renderForm = () => {
         return (
-            <div className="col-lg-6">
-                <form onSubmit={handleSubmit(this.onSubmitClick.bind(this))} className="form-horizontal">
-                    <p className="help-block">Add new people</p>
+                <form onSubmit={handleSubmit(formSubmitHandler)} className="form-horizontal">
                     <div className="form-group col-lg-12">
                         <Field 
                             component={renderField} 
@@ -80,41 +64,28 @@ class AddItem extends Component {
                     </div>
                     <button className="btn btn-primary" type="submit">Save</button>
                     {' '}
-                    <input type="button" className="btn" value="Cancel" onClick={() => this.props.changeState()}/>
+                    {
+                        (props.form == 'addForm')
+                        && <input type="button" className="btn" value="Cancel" onClick={() => props.changeState()}/>
+                    }
+
+                    {
+                        (props.form == 'editForm')
+                        && <input type="button" className="btn" value="Clear Values" onClick={reset}/>
+                    }
+                    
                 </form>
-            </div>
-            
-        );
+                )
     }
-}
 
-
-const validate = (values) => {
-    const errors = {}
-
-    const field = [
-        'name',
-        'surname',
-        'age',
-        'phone',
-        'mark'
-    ]
-
-    // for (let key in values) {
-    //     console.log(key)
-    //     console.log(values[key])
-    //     errors[key] = validateField(key, values[key]);
-    //     console.log(errors)
-    // }
-
-    field.forEach((item) => {
-        errors[item] = validateField(item, values[item]);
-    })
-
-    return errors
+    return (
+        <div>
+            { renderForm() }
+        </div>
+    );
 }
 
 export default reduxForm({
-    form: 'addItem', // a unique identifier for this form
-    validate, // <--- validation function given to redux-form
-})(AddItem)
+    form: uniqueId(''),
+    validate,
+})(Form)
