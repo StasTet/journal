@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack",
+    "start": "webpack && npm run server",
     "nodemon": "nodemon  index.js --exec babel-node --presets es2015,stage-0",
     "server": "babel-node index.js --exec --presets es2015,stage-0",
     "dev": "webpack-dev-server --hot --progress"
