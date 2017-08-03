@@ -49,7 +49,7 @@ class FullInformation extends Component {
                         <li className="list-group-item">Surname - {currentItem.surname}</li>
                         <li className="list-group-item">Age - {currentItem.age}</li>
                         <li className="list-group-item">Phone - {currentItem.phone}</li>
-                        <li className="list-group-item">Mark - {currentItem.mark}</li>
+                        <li className="list-group-item">Mark - {currentItem.name}</li>
                     </ul>
                 </div>
 
