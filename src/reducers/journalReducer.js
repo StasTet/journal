@@ -91,7 +91,7 @@ const journal = (state = initialState, action) => {
                 })
             }
 
-        case 'SET_MARK':
+        case 'EDIT_ITEM':
             return {
                 ...state,
                 data: state.data.map((item, index) => {
@@ -100,7 +100,12 @@ const journal = (state = initialState, action) => {
                     }
                     return {
                         ...item,
-                        mark: action.data
+                        active: true,
+                        name: action.data.name,
+                        surname: action.data.surname,
+                        age: action.data.age,
+                        phone: action.data.phone,
+                        mark: action.data.mark
                     };
                 })
             }

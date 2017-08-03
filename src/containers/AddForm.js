@@ -4,7 +4,7 @@ import { validateField } from '../validation/errorMessages';
 
 class AddItem extends Component {
 
-     onSubmitEdit(values) {
+    onSubmitClick(values) {
         const data = {
             name : values.name,
             surname: values.surname,
@@ -25,13 +25,13 @@ class AddItem extends Component {
             <div>
                 <label>{label}</label>
                 <input {...input} placeholder={label} type={type} className="form-control" />
-                 {touched && ((error && <span className="label label-danger">{error}</span>) || (warning && <span className="label label-warning">{warning}</span>))}
+                 {touched && (error && <span className="label label-danger">{error}</span>)}
             </div>
         )
 
         return (
             <div className="col-lg-6">
-                <form onSubmit={handleSubmit(this.onSubmitEdit.bind(this))} className="form-horizontal">
+                <form onSubmit={handleSubmit(this.onSubmitClick.bind(this))} className="form-horizontal">
                     <p className="help-block">Add new people</p>
                     <div className="form-group col-lg-12">
                         <Field 

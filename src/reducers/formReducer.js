@@ -1,6 +1,6 @@
 const initialState = {
     visible_addForm: false,
-    visible_editForm: false
+    visible_deleteBtn: false
 }
 
 const form = (state = initialState, action) => {
@@ -19,13 +19,13 @@ const form = (state = initialState, action) => {
         case 'EDIT_FORM_SHOW':
             return {
                 ...state,
-                visible_editForm: true
+                visible_deleteBtn: true
             }
 
         case 'EDIT_FORM_HIDE':
             return {
                 ...state,
-                visible_editForm: false
+                visible_deleteBtn: false
             }
 
         default:

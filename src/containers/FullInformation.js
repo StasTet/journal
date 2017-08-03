@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import EditForm from '../containers/EditForm'
+import * as journalAction from '../actions/journalAction';
+import * as formAction from '../actions/formAction';
 
 class FullInformation extends Component {
     constructor(props) {
@@ -19,9 +23,11 @@ class FullInformation extends Component {
 
         const currentItem = this.active;
 
+        console.log(this.props.journal)
         return (
             <div className="col-xs-12 col-md-12 col-lg-12">
                 <Link to="/">Back to home!</Link>
+                
                 {
                     currentItem !== undefined &&
                         <ul className="list-group">
@@ -32,7 +38,16 @@ class FullInformation extends Component {
                             <li className="list-group-item">Phone - {currentItem.phone}</li>
                             <li className="list-group-item">Mark - {currentItem.mark}</li>
                         </ul>
-                } 
+                }
+                
+                {
+                    this.props.stateJournal.login &&
+                        <EditForm
+                            data={currentItem}
+                            state={this.props.journal}
+                        />
+                }
+               
             </div>
         );
     }
@@ -40,8 +55,16 @@ class FullInformation extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        stateJournal: state.journal
+        stateJournal: state.journal,
+        stateForm: state.userForm
     }
 }
 
-export default connect(mapStateToProps)(FullInformation)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        journal: bindActionCreators(journalAction, dispatch),
+        form: bindActionCreators(formAction, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FullInformation)

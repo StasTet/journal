@@ -108,7 +108,14 @@ router.route('/journal/:id')
             _id: req.params.id
         })
 
+        data.visible = req.body.visible;
+        data.active = req.body.active;
         data.mark = req.body.mark;
+        data.phone = req.body.phone;
+        data.age = req.body.age;
+        data.surname = req.body.surname;
+        data.name = req.body.name;
+        
         await data.save();
         res.json({
             message: 'Journal updated!'

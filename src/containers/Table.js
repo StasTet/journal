@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { uniqueId } from 'lodash';
 import { Link } from 'react-router-dom';
-import EditForm from './EditForm';
+import DeleteButton from './DeleteButton';
 import AddForm from './AddForm';
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
@@ -117,7 +117,7 @@ class Table extends Component {
 
         const renderAddForm = () => {
             if (this.props.stateForm.visible_addForm) {
-                return <AddForm 
+                return <AddForm
                             state={this.props.journal}
                             changeState={this.setStateAddForm.bind(this)}
                         />
@@ -125,8 +125,8 @@ class Table extends Component {
         }
 
         const renderEditForm = () => {
-            if (this.props.stateJournal.login && this.row != null && this.props.stateJournal.data.length > 0 && this.props.stateForm.visible_editForm) {
-                return <EditForm 
+            if (this.props.stateJournal.login && this.row != null && this.props.stateJournal.data.length > 0 && this.props.stateForm.visible_deleteBtn) {
+                return <DeleteButton
                             data={this.row} 
                             state={this.props.journal} 
                             changeState={this.setStateEditForm.bind(this)} 
