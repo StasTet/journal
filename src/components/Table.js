@@ -4,12 +4,7 @@ import { bindActionCreators } from 'redux';
 import { uniqueId } from 'lodash';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../containers/DeleteButton';
-
-
-// import AddForm from '../containers/AddForm';
 import Form from '../containers/Form';
-
-
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
 import '../style/table.scss';

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import EditForm from '../containers/EditForm'
 import Form from '../containers/Form';
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
