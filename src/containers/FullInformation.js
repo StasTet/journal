@@ -22,7 +22,7 @@ class FullInformation extends Component {
         return (
             <div className="col-xs-12 col-md-12 col-lg-12">
                 <Link to="/">Back to home!</Link>
-                 { 
+                {
                     currentItem !== undefined &&
                         <ul className="list-group">
                             <li className="list-group-item">ID - {currentItem._id.substr(4,4)}</li>
@@ -30,10 +30,7 @@ class FullInformation extends Component {
                             <li className="list-group-item">Surname - {currentItem.surname}</li>
                             <li className="list-group-item">Age - {currentItem.age}</li>
                             <li className="list-group-item">Phone - {currentItem.phone}</li>
-                            {   
-                                currentItem.mark != null &&
-                                <li className="list-group-item">Mark - {currentItem.mark}</li>
-                            }
+                            <li className="list-group-item">Mark - {currentItem.mark}</li>
                         </ul>
                 } 
             </div>
