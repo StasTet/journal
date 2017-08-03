@@ -7,7 +7,7 @@ import rootReducer from '../reducers';
 
 export const configureStore = (initialState) => {
     
-    const enhancer = composeWithDevTools(applyMiddleware(thunk)); //logger
+    const enhancer = composeWithDevTools(applyMiddleware(thunk, logger)); //logger
     const store = createStore(rootReducer, initialState, enhancer);
 
     if (module.hot) {

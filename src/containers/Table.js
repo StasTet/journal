@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { uniqueId } from 'lodash';
+import { Link } from 'react-router-dom';
 import EditForm from './EditForm';
 import AddForm from './AddForm';
+import * as journalAction from '../actions/journalAction';
+import * as formAction from '../actions/formAction';
 import '../style/table.scss';
 
-export default class Table extends Component {
+class Table extends Component {
     constructor(props) {
         super(props);
 
@@ -13,35 +18,52 @@ export default class Table extends Component {
         this.row = null;
     }
 
-    onRow(row) {
+    componentDidMount() {
+        this.loadData();
+    }
+
+    loadData() {
+        this.props.journal.setData();
+    }
+
+    onClickHeader(cell) {
+        this.props.journal.sortData(cell);
+    }
+
+    onClickRow(row) {
         this.row = row;
-        this.props.state.form.showEditForm();
+        this.props.form.showEditForm();
+        this.props.journal.showActive(row._id);
+    }
+
+    onChangeInput(e) {
+        this.props.journal.searchData(e.target.value.toLowerCase());
     }
 
     onClickAdditem() {
-        this.props.state.form.showAddForm();
+        this.props.form.showAddForm();
     }
 
     onClickAdditemClose() {
-        this.props.state.form.hideAddForm();
+        this.props.form.hideAddForm();
     }
 
     setStateAddForm() {
-        this.props.state.form.hideAddForm();
+        this.props.form.hideAddForm();
     }
 
     setStateEditForm() {
-        this.props.state.form.hideEditForm();
+        this.props.form.hideEditForm();
     }
     
     render() {
-        const headTable = this.props.data.map((item, index) => {
+        const headTable = this.props.stateJournal.data.map((item, index) => {
             if (index == 0) {
                 return (
                     <tr key={uniqueId()}>
                         {
-                            Object.keys(this.props.data[0]).filter(item => this.showRows.indexOf(item) !== -1).map((cell) => {
-                                return <th key={uniqueId()} onClick={() => this.props.onClickHeader(cell)}>{cell}</th>
+                            Object.keys(this.props.stateJournal.data[0]).filter(item => this.showRows.indexOf(item) !== -1).map((cell) => {
+                                return <th key={uniqueId()} onClick={this.onClickHeader.bind(this, cell)}>{cell}</th>
                             })
                         }
                     </tr>
@@ -49,13 +71,13 @@ export default class Table extends Component {
             }
         });
 
-        const bodyTable = this.props.data.map((row) =>{
+        const bodyTable = this.props.stateJournal.data.map((row) =>{
             if (row.visible) {
                 return (
-                    <tr key={row._id} onClick={() => {this.props.onClickRow(row);this.onRow(row)}} className={(row.active) ? 'info' : 'not-active'}>
+                    <tr key={row._id} onClick={this.onClickRow.bind(this, row)} className={(row.active) ? 'info' : 'not-active'}>
                         {
                             Object.keys(row).filter(item => this.showRows.indexOf(item) !== -1).map((cell) => {
-                                return <td key={row._id + '' + cell}>{row[cell]}</td>
+                                return <td key={row._id + '' + cell}><Link to={`/user/${row._id}`}>{row[cell]}</Link></td>
                             })
                         }
                     </tr>
@@ -64,7 +86,7 @@ export default class Table extends Component {
         });
 
         const renderTable = () => {
-            if (this.props.data.length > 0) {
+            if (this.props.stateJournal.data.length > 0) {
                 return <table className="table table-bordered table-striped table-hover table-condensed">
                             <thead>
                                 <tr>
@@ -73,8 +95,8 @@ export default class Table extends Component {
                                             type="text"
                                             placeholder="Search people by surname"
                                             className="search"
-                                            ref={input => this.textInput = input} 
-                                            onChange={() => this.props.onChangeInput(this.textInput.value)}
+                                            ref={input => this.textInput = input}
+                                            onChange={this.onChangeInput.bind(this)}
                                         />
                                     </td>
                                 </tr>
@@ -88,32 +110,32 @@ export default class Table extends Component {
         }
 
         const addItem = () => {
-            if (this.props.login && !this.props.stateUserForm.visible_addForm) {
+            if (this.props.stateJournal.login && !this.props.stateForm.visible_addForm) {
                 return <div className="col-lg-12"><input type="button" onClick={this.onClickAdditem.bind(this)} className="btn" value="Add new people" /></div>
             }
         }
 
         const renderAddForm = () => {
-            if (this.props.stateUserForm.visible_addForm) {
+            if (this.props.stateForm.visible_addForm) {
                 return <AddForm 
-                        state={this.props.state.journal}
-                        changeState={this.setStateAddForm.bind(this)}
-                    />
+                            state={this.props.journal}
+                            changeState={this.setStateAddForm.bind(this)}
+                        />
             }
         }
 
         const renderEditForm = () => {
-            if (this.props.login && this.row != null && this.props.data.length > 0 && this.props.stateUserForm.visible_editForm) {
+            if (this.props.stateJournal.login && this.row != null && this.props.stateJournal.data.length > 0 && this.props.stateForm.visible_editForm) {
                 return <EditForm 
-                        data={this.row} 
-                        state={this.props.state.journal} 
-                        changeState={this.setStateEditForm.bind(this)} 
-                    />
+                            data={this.row} 
+                            state={this.props.journal} 
+                            changeState={this.setStateEditForm.bind(this)} 
+                        />
             }
         }
 
         return (
-            <div className="col-xs-12 col-md-6 col-lg-9">
+            <div className="col-xs-12 col-md-12 col-lg-12">
                 { renderTable() }
                 { addItem() }
                 { renderAddForm() }
@@ -122,3 +144,19 @@ export default class Table extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        stateJournal: state.journal,
+        stateForm: state.userForm
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        journal: bindActionCreators(journalAction, dispatch),
+        form: bindActionCreators(formAction, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

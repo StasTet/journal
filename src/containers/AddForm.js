@@ -91,7 +91,7 @@ class AddItem extends Component {
 
 const validate = (values) => {
     const errors = {}
-    
+
     const field = [
         'name',
         'surname',
@@ -100,7 +100,14 @@ const validate = (values) => {
         'mark'
     ]
 
-    field.map((item) => {
+    // for (let key in values) {
+    //     console.log(key)
+    //     console.log(values[key])
+    //     errors[key] = validateField(key, values[key]);
+    //     console.log(errors)
+    // }
+
+    field.forEach((item) => {
         errors[item] = validateField(item, values[item]);
     })
 

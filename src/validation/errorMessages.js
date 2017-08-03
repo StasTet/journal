@@ -25,7 +25,7 @@ const errorMessages = {
                 return warning_required
             }
 
-            if (value.length !== undefined && value.length > min_length_name) {
+            if (value.length > min_length_name) {
                 return warning_name;
             }
         }

@@ -71,7 +71,7 @@ const validate = (values) => {
         'mark'
     ]
 
-    field.map((item) => {
+    field.forEach((item) => {
         errors[item] = validateField(item, values[item]);
     })
 

@@ -1,21 +1,24 @@
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as journalAction from '../actions/journalAction';
-import * as formAction from '../actions/formAction';
-import Main from './Main';
+import React, { Component } from 'react';
+import Body from '../containers/Body'
+import Main from '../containers/Main';
+import Header from '../containers/Header';
+import Footer from '../containers/Footer';
 
-const mapStateToProps = (state) => {
-    return {
-        stateJournal: state.journal,
-        stateForm: state.userForm
+import 'bootstrap/dist/css/bootstrap.css'; 
+import 'bootstrap/dist/css/bootstrap-theme.css';
+
+export default class App extends Component {
+    render() {
+        return (
+            <div>
+                <Header />
+
+                <Body>
+                    <Main />
+                </Body>
+
+                <Footer />
+            </div>
+        );
     }
 }
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        journal: bindActionCreators(journalAction, dispatch),
-        form: bindActionCreators(formAction, dispatch)
-    }
-}
-
-export const App = connect(mapStateToProps, mapDispatchToProps)(Main);
