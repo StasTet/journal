@@ -78,11 +78,7 @@ const Form = (props) => {
                 )
     }
 
-    return (
-        <div>
-            { renderForm() }
-        </div>
-    );
+    return renderForm()
 }
 
 export default reduxForm({
