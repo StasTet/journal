@@ -40,20 +40,17 @@ class FullInformation extends Component {
         console.log(this.props.journal)
         return (
             <div className="col-xs-12 col-md-12 col-lg-12">
-                <Link to="/">Back to home!</Link>
+                <p><Link to="/">Back to home</Link></p>
                 
-                {
-                    currentItem !== undefined &&
-                        <ul className="list-group">
-                            <li className="list-group-item">ID - {currentItem._id.substr(4,4)}</li>
-                            <li className="list-group-item">Name - {currentItem.name}</li>
-                            <li className="list-group-item">Surname - {currentItem.surname}</li>
-                            <li className="list-group-item">Age - {currentItem.age}</li>
-                            <li className="list-group-item">Phone - {currentItem.phone}</li>
-                            <li className="list-group-item">Mark - {currentItem.mark}</li>
-                        </ul>
-                }
-                
+                <ul className="list-group">
+                    <li className="list-group-item">ID - {currentItem._id.substr(4,4)}</li>
+                    <li className="list-group-item">Name - {currentItem.name}</li>
+                    <li className="list-group-item">Surname - {currentItem.surname}</li>
+                    <li className="list-group-item">Age - {currentItem.age}</li>
+                    <li className="list-group-item">Phone - {currentItem.phone}</li>
+                    <li className="list-group-item">Mark - {currentItem.mark}</li>
+                </ul>
+
                 {
                     this.props.stateJournal.login &&
                         <Form

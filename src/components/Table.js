@@ -54,7 +54,7 @@ class Table extends Component {
 
     onHandlerDelete(id) {
         this.props.journal.delItem(id);
-        this.setStateForm();
+        this.setStateDelBtn();
     }
 
     formSubmitHandler(values) {
