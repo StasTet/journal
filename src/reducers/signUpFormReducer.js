@@ -7,7 +7,7 @@ const initialState = {
 const loginForm = (state = initialState, action) => {
 
     switch (action.type) {
-        case 'LOG_IN':
+        case 'SIGN_UP':
             return {
                 ...state,
                 isValid: true,
@@ -15,7 +15,7 @@ const loginForm = (state = initialState, action) => {
                 errors: {}
             }
 
-        case 'LOG_ERROR':
+        case 'SIGN_ERROR':
             return {
                 ...state,
                 isValid: false,
@@ -23,7 +23,7 @@ const loginForm = (state = initialState, action) => {
                 errors: action.payload
             }
 
-        case 'LOG_OUT':
+        case 'SIGN_OUT':
             return {
                 ...state,
                 isValid: false,

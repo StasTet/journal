@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import validator from 'validator';
 
 const router = express.Router();
 
@@ -20,6 +21,39 @@ const asyncMiddleware = (fn) => {
         return ret;
     }
 }
+
+const validateSignupForm = (payload) => {
+    const errors = {};
+    let isFormValid = true;
+    let message = '';
+
+    console.log(payload)
+    if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
+        isFormValid = false;
+        errors.email = 'Please provide a correct email address.';
+    }
+
+    if (!payload || typeof payload.login !== 'string' || payload.login.trim().length === 0) {
+        isFormValid = false;
+        errors.login = 'Please provide your login.';
+    }
+
+    if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 8) {
+        isFormValid = false;
+        errors.password = 'Password must have at least 8 characters.';
+    }
+
+    if (!isFormValid) {
+        message = 'Check the form for errors.';
+    }
+
+    return {
+        success: isFormValid,
+        message,
+        errors
+    };
+}
+
 
 const validateLoginForm = (payload) => {
     const errors = {};
@@ -47,12 +81,12 @@ const validateLoginForm = (payload) => {
     };
 }
 
-router.route('/login')
 
+router.route('/signup')
     .post((req, res) => {
-        const validationResult = validateLoginForm(req.body);
+        const validationResult = validateSignupForm(req.body);
 
-        console.log(req.body);
+        console.log('SignUp - ' + req.body);
 
         if (!validationResult.success) {
             return res.status(400).json({
@@ -62,29 +96,52 @@ router.route('/login')
             });
         }
 
-        return passport.authenticate('local-login', (err, token, userData) => {
-            if (err) {
-                if (err.name === 'IncorrectCredentialsError') {
-                    return res.status(400).json({
-                        success: false,
-                        message: err.message
-                    });
-                }
-
-                return res.status(400).json({
-                    success: false,
-                    message: 'Could not process the form.'
-                });
-            }
+        return res.status(200).end();
+    })
 
 
-            return res.json({
-                success: true,
-                message: 'You have successfully logged in!',
-                token,
-                user: userData
+
+
+
+
+router.route('/login')
+    .post((req, res) => {
+        const validationResult = validateLoginForm(req.body);
+
+        console.log('Login - ' + req.body);
+
+        if (!validationResult.success) {
+            return res.status(400).json({
+                success: false,
+                message: validationResult.message,
+                errors: validationResult.errors
             });
-        })(req, res);
+        }
+
+        return res.status(200).end();
+        // return passport.authenticate('local-login', (err, token, userData) => {
+        //     if (err) {
+        //         if (err.name === 'IncorrectCredentialsError') {
+        //             return res.status(400).json({
+        //                 success: false,
+        //                 message: err.message
+        //             });
+        //         }
+
+        //         return res.status(400).json({
+        //             success: false,
+        //             message: 'Could not process the form.'
+        //         });
+        //     }
+
+
+        //     return res.json({
+        //         success: true,
+        //         message: 'You have successfully logged in!',
+        //         token,
+        //         user: userData
+        //     });
+        // })(req, res);
     })
 
     export default router;

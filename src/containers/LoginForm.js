@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import * as journalAction from '../actions/journalAction';
 import * as loginFormAction from '../actions/loginFormAction';
 import '../style/loginForm.scss';
@@ -32,7 +33,7 @@ class LoginForm extends Component {
         
 
         // if (!this.props.stateLoginForm.isValid) {
-            this.props.loginForm.signIn(formData);
+            this.props.loginForm.logIn(formData);
             // (this.props.stateLoginForm.errors.message) && localStorage.setItem('login', true);
         // }
         
@@ -51,7 +52,7 @@ class LoginForm extends Component {
     onClickSignOut(event) {
         event.preventDefault();
         localStorage.clear();
-        this.props.loginForm.signOut();
+        this.props.loginForm.logOut();
 
         // this.props.journal.signOut();
     }
@@ -61,21 +62,22 @@ class LoginForm extends Component {
             <div className="login-form">
                 {
                     this.props.stateLoginForm.isValid
-                    ?   <form onSubmit={this.onClickSignOut.bind(this)} className="form col-xs-6 col-md-4 col-lg-4 text-center">
+                    ?   <form action="/" onSubmit={this.onClickSignOut.bind(this)} className="form col-xs-6 col-md-4 col-lg-4 text-center">
                             <label>Admin</label>{' '}
-                            <button className="btn">Sign out</button>
+                            <button className="btn">Log out</button>
                         </form>
 
-                    :   <form onSubmit={this.onSubmitHandler.bind(this)} className="form col-xs-6 col-md-4 col-lg-4 text-center">
+                    :   <form action="/" onSubmit={this.onSubmitHandler.bind(this)} className="form col-xs-6 col-md-4 col-lg-4 text-center">
                             { this.props.stateLoginForm.errors.message && <p className="error text-danger">{this.props.stateLoginForm.errors.message}</p> }
 
-                            <input type="text" ref={input => this.loginInput = input} className="form-control" placeholder="login"/>
+                            <input type="text" ref={input => this.loginInput = input} className="form-control" placeholder="Login"/>
                             { (this.props.stateLoginForm.errors.errors !== undefined && this.props.stateLoginForm.errors.errors.login) && <p className="error text-danger">{this.props.stateLoginForm.errors.errors.login}</p> }
 
                             <input type="password" ref={input => this.passwordInput = input} className="form-control" placeholder="Password"/>
                             { (this.props.stateLoginForm.errors.errors !== undefined && this.props.stateLoginForm.errors.errors.password) && <p className="error text-danger">{this.props.stateLoginForm.errors.errors.password}</p> }
 
-                            <button className="btn btn-primary">Sign in</button>
+                            <button className="btn btn-primary">Log in</button>
+                            <p className="">Don't have an account? <Link to="/signup">Create one</Link>.</p>
                         </form>
                         
                 }

@@ -1,26 +1,26 @@
 import axios from 'axios';
 
-export const logIn = (data) => {
+export const signUp = (data) => {
     return (dispatch) => {
         
-        axios.post('/auth/login', data)
+        axios.post('/auth/signup', data)
             .then((res) => {
                 dispatch({
-                    type: 'LOG_IN',
+                    type: 'SIGN_UP',
                     payload: data,
                 })
             })
             .catch((err) => {
                 dispatch({
-                    type: 'LOG_ERROR',
+                    type: 'SIGN_ERROR',
                     payload: err.response.data,
                 })
             })
     }
 }
 
-export const logOut = () => {
+export const signOut = () => {
     return {
-        type: 'LOG_OUT'
+        type: 'SIGN_OUT'
     }
 }
