@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { uniqueId } from 'lodash';
 import { Link } from 'react-router-dom';
-import { DeleteButton } from '../containers/DeleteButton';
-import Form from '../containers/Form';
+import { DeleteButton } from '../components/DeleteButton';
+import Form from '../components/Form';
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
+import * as loginFormAction from '../actions/loginFormAction';
 import '../style/table.scss';
 
 class Table extends Component {
@@ -130,7 +131,7 @@ class Table extends Component {
         }
 
         const addItem = () => {
-            if (this.props.stateJournal.login && !this.props.stateForm.visible_addForm) {
+            if (this.props.stateLoginForm.isValid && !this.props.stateForm.visible_addForm) {
                 return <input type="button" onClick={this.onClickAdditem.bind(this)} className="btn" value="Add new people" />
             }
         }
@@ -147,7 +148,7 @@ class Table extends Component {
         }
 
         const renderEditForm = () => {
-            if (this.props.stateJournal.login && this.row != null && this.props.stateJournal.data.length > 0 && this.props.stateForm.visible_deleteBtn) {
+            if (this.props.stateLoginForm.isValid && this.row != null && this.props.stateJournal.data.length > 0 && this.props.stateForm.visible_deleteBtn) {
                 return <DeleteButton
                             data={this.row} 
                             onHandlerDelete={this.onHandlerDelete.bind(this)} 
@@ -170,14 +171,16 @@ class Table extends Component {
 const mapStateToProps = (state) => {
     return {
         stateJournal: state.journal,
-        stateForm: state.userForm
+        stateForm: state.userForm,
+        stateLoginForm: state.loginForm
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         journal: bindActionCreators(journalAction, dispatch),
-        form: bindActionCreators(formAction, dispatch)
+        form: bindActionCreators(formAction, dispatch),
+        loginForm: bindActionCreators(loginFormAction, dispatch)
     }
 }
 

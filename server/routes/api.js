@@ -21,6 +21,13 @@ const asyncMiddleware = (fn) => {
     }
 }
 
+// router.route('/dashboard')
+//     .get((req, res) => {
+//         res.status(200).json({
+//             message: 'You\'re authorized to see this secret message.'
+//         });
+// });
+
 router.route('/journal')
     // create a journal (accessed at POST http://localhost:8080/api/journal)
     .post(asyncMiddleware(async(req, res) => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Form from '../containers/Form';
+import Form from '../components/Form';
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
 
@@ -40,7 +40,7 @@ class FullInformation extends Component {
         console.log(this.props.journal)
         return (
             <div className="col-xs-12 col-md-12 col-lg-12">
-                <p><Link to="/">Back to home</Link></p>
+                {/* <p><Link to="/">Back to home</Link></p> */}
                 
                 <div className="col-xs-12 col-md-12 col-lg-6">
                     <ul className="list-group">

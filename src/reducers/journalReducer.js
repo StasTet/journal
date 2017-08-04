@@ -10,7 +10,7 @@ const initialState = {
     data: [],
     error: null,
     inverse: false,
-    login: localStorage.getItem('login')
+    // login: localStorage.getItem('login')
 }
 
 const journal = (state = initialState, action) => {
@@ -62,17 +62,17 @@ const journal = (state = initialState, action) => {
                 }))
             }
 
-        case 'SIGN_IN':
-            return {
-                ...state,
-                login: localStorage.getItem('login')
-            }
+        // case 'SIGN_IN':
+        //     return {
+        //         ...state,
+        //         login: localStorage.getItem('login')
+        //     }
 
-        case 'SIGN_OUT':
-            return {
-                ...state,
-                login: localStorage.getItem('login')
-            }
+        // case 'SIGN_OUT':
+        //     return {
+        //         ...state,
+        //         login: localStorage.getItem('login')
+        //     }
 
         case 'SET_ACTIVE':
             return {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Body from '../containers/Body'
-import Main from '../containers/Main';
-import Header from '../containers/Header';
-import Footer from '../containers/Footer';
+import Body from '../components/Body'
+import Main from '../components/Main';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 import 'bootstrap/dist/css/bootstrap.css'; 
 import 'bootstrap/dist/css/bootstrap-theme.css';
