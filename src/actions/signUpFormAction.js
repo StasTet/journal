@@ -2,13 +2,14 @@ import axios from 'axios';
 
 export const signUp = (data) => {
     return (dispatch) => {
-        
         axios.post('/auth/signup', data)
+            
             .then((res) => {
                 dispatch({
                     type: 'SIGN_UP',
-                    payload: data,
+                    payload: res.data,
                 })
+                localStorage.setItem('successMessage', res.data.message);
             })
             .catch((err) => {
                 dispatch({

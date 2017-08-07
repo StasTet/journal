@@ -1,16 +1,16 @@
 const initialState = {
     isValid: false, // localStorage.getItem('login'),
-    data: [],
+    data: {},
     errors: {}
 }
 
-const loginForm = (state = initialState, action) => {
+const signUpForm = (state = initialState, action) => {
 
     switch (action.type) {
         case 'SIGN_UP':
             return {
                 ...state,
-                isValid: true,
+                isValid: action.payload.success,
                 data: action.payload,
                 errors: {}
             }
@@ -18,7 +18,7 @@ const loginForm = (state = initialState, action) => {
         case 'SIGN_ERROR':
             return {
                 ...state,
-                isValid: false,
+                isValid: action.payload.success,
                 data: [],
                 errors: action.payload
             }
@@ -26,8 +26,8 @@ const loginForm = (state = initialState, action) => {
         case 'SIGN_OUT':
             return {
                 ...state,
-                isValid: false,
-                data: [],
+                isValid: action.payload.success,
+                data: {},
                 errors: {}
             }
 
@@ -36,4 +36,4 @@ const loginForm = (state = initialState, action) => {
     }
 }
 
-export default loginForm;
+export default signUpForm;

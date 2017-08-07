@@ -3,8 +3,11 @@ import favicon from 'serve-favicon'
 import path from 'path';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+
 import passport from 'passport';
 import localLoginStrategy from './passport/local-login';
+import localSignupStrategy from './passport/local-signup';
+
 import authCheckMiddleware from './middleware/auth-check';
 
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -47,15 +50,15 @@ export const startServer = () => {
 
 
     // load passport strategies
+    passport.use('local-signup', localSignupStrategy);
     passport.use('local-login', localLoginStrategy);
-
-    // pass the authenticaion checker middleware
-    // app.use('/api', authCheckMiddleware);
-
 
     app.get('/', (req, res) => {
         res.sendFile(__dirname + '/build/index.html');
     });
+
+    // pass the authenticaion checker middleware
+    app.use('/api', authCheckMiddleware);
     
     app.use('/api', apiRoutes);
 

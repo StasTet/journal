@@ -1,5 +1,5 @@
 import express from 'express';
-import Journal from '../model';
+import Journal from '../model/journal';
 
 const router = express.Router();
 

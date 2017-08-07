@@ -10,23 +10,22 @@ class SignUpForm extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
         // localStorage.clear();
-        console.log('login:', this.loginInput.value);
+        console.log('name:', this.nameInput.value);
         console.log('email:', this.emailInput.value);
         console.log('password:', this.passwordInput.value);
 
-        const login = encodeURIComponent(this.loginInput.value);
+        const name = encodeURIComponent(this.nameInput.value);
         const email = encodeURIComponent(this.emailInput.value);
         const password = encodeURIComponent(this.passwordInput.value);
-        const formData = `login=${login}&email=${email}&password=${password}`;
+        const formData = `name=${name}&email=${email}&password=${password}`;
         // const formData = {
-        //     login,
+        //     name,
         //     email,
         //     password
         // }
 
         this.props.signUpForm.signUp(formData);
-
-
+        
         // this.props.loginForm.signIn(formData);
 
         
@@ -48,15 +47,17 @@ class SignUpForm extends Component {
             <div className="login-form">
                 {
                    <form action="/" onSubmit={this.onSubmitHandler.bind(this)} className="form col-xs-6 col-md-4 col-lg-4 text-center">
+
                         { this.props.stateSignUpForm.errors.message && <p className="error text-danger">{this.props.stateSignUpForm.errors.message}</p> } 
+                        { this.props.stateSignUpForm.data.message && <p className="text-success">{this.props.stateSignUpForm.data.message}</p> }
 
-                        <input type="text" ref={input => this.loginInput = input} className="form-control" placeholder="Login"/>
-                        { (this.props.stateSignUpForm.errors.errors !== undefined && this.props.stateSignUpForm.errors.errors.login) && <p className="error text-danger">{this.props.stateSignUpForm.errors.errors.login}</p> } 
+                        <input type="text" ref={input => this.nameInput = input} className="form-control" placeholder="Login" />
+                        { (this.props.stateSignUpForm.errors.errors !== undefined && this.props.stateSignUpForm.errors.errors.name) && <p className="error text-danger">{this.props.stateSignUpForm.errors.errors.name}</p> } 
 
-                        <input type="text" ref={input => this.emailInput = input} className="form-control" placeholder="Email"/>
+                        <input type="text" ref={input => this.emailInput = input} className="form-control" placeholder="Email" />
                         { (this.props.stateSignUpForm.errors.errors !== undefined && this.props.stateSignUpForm.errors.errors.email) && <p className="error text-danger">{this.props.stateSignUpForm.errors.errors.email}</p> } 
 
-                        <input type="password" ref={input => this.passwordInput = input} className="form-control" placeholder="Password"/>
+                        <input type="password" ref={input => this.passwordInput = input} className="form-control" placeholder="Password" />
                         { (this.props.stateSignUpForm.errors.errors !== undefined && this.props.stateSignUpForm.errors.errors.password) && <p className="error text-danger">{this.props.stateSignUpForm.errors.errors.password}</p> } 
 
                         <button className="btn btn-primary">Sign in</button>

@@ -1,6 +1,6 @@
 const initialState = {
-    isValid: false, // localStorage.getItem('login'),
-    data: [],
+    isValid: (localStorage.getItem('token') ? true : false), // localStorage.getItem('login'),
+    data: {},
     errors: {}
 }
 
@@ -10,7 +10,7 @@ const loginForm = (state = initialState, action) => {
         case 'LOG_IN':
             return {
                 ...state,
-                isValid: true,
+                isValid: action.payload.success,
                 data: action.payload,
                 errors: {}
             }
@@ -18,16 +18,16 @@ const loginForm = (state = initialState, action) => {
         case 'LOG_ERROR':
             return {
                 ...state,
-                isValid: false,
-                data: [],
+                isValid: action.payload.success,
+                data: {},
                 errors: action.payload
             }
 
         case 'LOG_OUT':
             return {
                 ...state,
-                isValid: false,
-                data: [],
+                isValid: action.payload.success,
+                data: {},
                 errors: {}
             }
 

@@ -20,7 +20,9 @@ class Table extends Component {
     }
 
     componentDidMount() {
-        this.loadData();
+        this.props.journal.setAuthorization();
+        console.log(this.props.journal.setAuthorization())
+        // this.loadData();
     }
 
     loadData() {

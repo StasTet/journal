@@ -10,6 +10,7 @@ const initialState = {
     data: [],
     error: null,
     inverse: false,
+    auth: (localStorage.getItem('token') ? true : false)
     // login: localStorage.getItem('login')
 }
 
@@ -60,6 +61,12 @@ const journal = (state = initialState, action) => {
                 data: state.data.map((item) => ({ ...item,
                     visible: item.surname.toLowerCase().includes(action.payload.trim())
                 }))
+            }
+
+        case 'SET_AUTH':
+            return {
+                ...state,
+                auth: true
             }
 
         // case 'SIGN_IN':

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import LoginForm from '../containers/LoginForm';
+// import LoginForm from '../containers/LoginForm';
 import { Link } from 'react-router-dom';
+import Auth from '../modules/authentication';
 import '../style/header.scss';
 
 export default class Header extends Component {
@@ -15,12 +16,20 @@ export default class Header extends Component {
                         <div className="top-menu">
                             <Link to="/">Home</Link>
                         </div>
-                    
-                        <div className="login-btn">
-                            <Link to="/login">Log in</Link>
-                            <Link to="/signup">Sign up</Link>
-                        </div>
-                    
+
+                            {
+                                Auth.isUserAuthenticated() ? (
+                                    <div className="login-btn">
+                                        <Link to="/logout">Log out</Link>
+                                    </div>
+                                ) : (
+                                    <div className="login-btn">
+                                        <Link to="/login">Log in</Link>
+                                        <Link to="/signup">Sign up</Link>
+                                    </div>
+                                )
+                            }
+                            
                     </div>
                 </div>
             </div>
