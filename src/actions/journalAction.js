@@ -8,40 +8,40 @@ import {
     createItem
 } from '../api';
 
-export const setAuthorization = () => {
-    return (dispatch) => {
-        axios
-            .get(getJournal(), {
-                headers: {'Authorization': 'token ' + Auth.getToken()}
-            })
-            .then((res) => {
-                dispatch({
-                    type: 'SET_AUTH'
-                })
-            })
-            .catch((err) => {
-                console.error(err)
-            })
-    }
+// export const setAuthorization = () => {
+//     return (dispatch) => {
+//         axios
+//             .get(getJournal(), {
+//                 headers: {'Authorization': 'token ' + Auth.getToken()}
+//             })
+//             .then((res) => {
+//                 dispatch({
+//                     type: 'SET_AUTH'
+//                 })
+//             })
+//             .catch((err) => {
+//                 console.error(err)
+//             })
+//     }
     
 
 
-        // const xhr = new XMLHttpRequest();
+//         // const xhr = new XMLHttpRequest();
 
-        // xhr.open('get', '/api/journal');
-        // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        // // set the authorization HTTP header
-        // xhr.setRequestHeader('Authorization', `token ${Auth.getToken()}`);
-        // xhr.responseType = 'json';
-        // xhr.addEventListener('load', () => {
-        //     if (xhr.status === 200) {
-        //         this.setState({
-        //             secretData: xhr.response.message
-        //         });
-        //     }
-        // });
-        // xhr.send();
-}
+//         // xhr.open('get', '/api/journal');
+//         // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+//         // // set the authorization HTTP header
+//         // xhr.setRequestHeader('Authorization', `token ${Auth.getToken()}`);
+//         // xhr.responseType = 'json';
+//         // xhr.addEventListener('load', () => {
+//         //     if (xhr.status === 200) {
+//         //         this.setState({
+//         //             secretData: xhr.response.message
+//         //         });
+//         //     }
+//         // });
+//         // xhr.send();
+// }
 
 
 export const setData = () => {

@@ -7,40 +7,24 @@ import * as signUpFormAction from '../actions/signUpFormAction';
 
 class SignUpForm extends Component {
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.stateSignUpForm.isValid) {
+            setTimeout(() => {
+                this.props.history.push('/login')
+            }, 1000);
+        }
+    }
+
     onSubmitHandler(event) {
         event.preventDefault();
-        // localStorage.clear();
-        console.log('name:', this.nameInput.value);
-        console.log('email:', this.emailInput.value);
-        console.log('password:', this.passwordInput.value);
 
         const name = encodeURIComponent(this.nameInput.value);
         const email = encodeURIComponent(this.emailInput.value);
         const password = encodeURIComponent(this.passwordInput.value);
         const formData = `name=${name}&email=${email}&password=${password}`;
-        // const formData = {
-        //     name,
-        //     email,
-        //     password
-        // }
 
         this.props.signUpForm.signUp(formData);
-        
-        // this.props.loginForm.signIn(formData);
-
-        
-
-        // if (this.login == this.loginInput.value && this.password == this.passwordInput.value) {
-        //     localStorage.setItem('login', true);
-        //     this.props.journal.signIn();
-        // } else {
-        //     console.log('error')
-        // }
-
-        // this.loginInput.value = '';
-        // this.passwordInput.value = '';
     }
-
 
     render() {
         return (
@@ -70,7 +54,6 @@ class SignUpForm extends Component {
     }
 }
 
-
 const mapStateToProps = (state) => {
     return {
         stateJournal: state.journal,
@@ -84,7 +67,5 @@ const mapDispatchToProps = (dispatch) => {
         signUpForm: bindActionCreators(signUpFormAction, dispatch),
     }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

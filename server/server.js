@@ -58,7 +58,7 @@ export const startServer = () => {
     });
 
     // pass the authenticaion checker middleware
-    app.use('/api', authCheckMiddleware);
+    // app.use('/api', authCheckMiddleware);
     
     app.use('/api', apiRoutes);
 

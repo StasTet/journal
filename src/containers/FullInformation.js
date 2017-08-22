@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Form from '../components/Form';
 import * as journalAction from '../actions/journalAction';
-import * as formAction from '../actions/formAction';
+import * as loginFormAction from '../actions/loginFormAction';
 
 class FullInformation extends Component {
     constructor(props) {
@@ -37,7 +37,6 @@ class FullInformation extends Component {
 
         const currentItem = this.active;
 
-        console.log(this.props.journal)
         return (
             <div className="col-xs-12 col-md-12 col-lg-12">
                 {/* <p><Link to="/">Back to home</Link></p> */}
@@ -55,7 +54,7 @@ class FullInformation extends Component {
 
                 <div className="col-xs-12 col-md-12 col-lg-6">
                     {
-                        this.props.stateJournal.login &&
+                        this.props.stateLoginForm.isValid &&
                             <Form
                                 data={currentItem}
                                 state={this.props.journal}
@@ -73,14 +72,14 @@ class FullInformation extends Component {
 const mapStateToProps = (state) => {
     return {
         stateJournal: state.journal,
-        stateForm: state.userForm
+        stateLoginForm: state.loginForm
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         journal: bindActionCreators(journalAction, dispatch),
-        form: bindActionCreators(formAction, dispatch)
+        loginForm: bindActionCreators(loginFormAction, dispatch),
     }
 }
 

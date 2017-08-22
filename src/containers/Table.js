@@ -5,6 +5,7 @@ import { uniqueId } from 'lodash';
 import { Link } from 'react-router-dom';
 import { DeleteButton } from '../components/DeleteButton';
 import Form from '../components/Form';
+// import Auth from '../modules/authentication';
 import * as journalAction from '../actions/journalAction';
 import * as formAction from '../actions/formAction';
 import * as loginFormAction from '../actions/loginFormAction';
@@ -20,9 +21,17 @@ class Table extends Component {
     }
 
     componentDidMount() {
-        this.props.journal.setAuthorization();
-        console.log(this.props.journal.setAuthorization())
-        // this.loadData();
+        // this.props.journal.setAuthorization();
+        // console.log(this.props.journal.setAuthorization())
+        this.loadData();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.stateLoginForm.isValid) {
+            setTimeout(() => {
+                this.props.history.push('/login');
+            }, 0);
+        }
     }
 
     loadData() {
@@ -139,7 +148,7 @@ class Table extends Component {
         }
 
         const renderAddForm = () => {
-            if (this.props.stateForm.visible_addForm) {
+            if (this.props.stateForm.visible_addForm && this.props.stateLoginForm.isValid) {
                 return <Form
                             state={this.props.journal}
                             changeState={this.setStateForm.bind(this)}

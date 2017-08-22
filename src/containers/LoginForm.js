@@ -19,54 +19,21 @@ class LoginForm extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.stateLoginForm.isValid) {
+            this.props.history.push('/')
+        }
+    }
+
     onSubmitHandler(event) {
         event.preventDefault();
-        // localStorage.clear();
-        console.log('email:', this.passwordInput.value);
-        console.log('password:', this.emailInput.value);
 
         const email = encodeURIComponent(this.emailInput.value);
         const password = encodeURIComponent(this.passwordInput.value);
         const formData = `email=${email}&password=${password}`;
-        // const formData = {
-        //     email,
-        //     password
-        // }
 
-        
-
-        // if (!this.props.stateLoginForm.isValid) {
         this.props.loginForm.logIn(formData);
-            // (this.props.stateLoginForm.errors.message) && localStorage.setItem('email', true);
-        // }
-        
-
-        // if (this.email == this.emailInput.value && this.password == this.passwordInput.value) {
-        //     localStorage.setItem('email', true);
-        //     this.props.journal.signIn();
-        // } else {
-        //     console.log('error')
-        // }
-
-        // this.emailInput.value = '';
-        // this.passwordInput.value = '';
     }
-
-    // onClickSignOut(event) {
-    //     event.preventDefault();
-    //     localStorage.clear();
-    //     this.props.loginForm.logOut();
-
-    //     // this.props.journal.signOut();
-    // }
-
-// this.props.stateLoginForm.isValid
-// ?   <form action="/" onSubmit={this.onClickSignOut.bind(this)} className="form col-xs-6 col-md-4 col-lg-4 text-center">
-//         <label>Admin</label>{' '}
-//         <button className="btn">Log out</button>
-//     </form>
-
-// : 
 
     render() {
         return (
@@ -106,7 +73,5 @@ const mapDispatchToProps = (dispatch) => {
         loginForm: bindActionCreators(loginFormAction, dispatch),
     }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

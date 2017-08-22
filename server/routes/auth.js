@@ -27,7 +27,6 @@ const validateSignupForm = (payload) => {
     let isFormValid = true;
     let message = '';
 
-    console.log(payload)
     if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
         isFormValid = false;
         errors.email = 'Please provide a correct email address.';
@@ -60,7 +59,6 @@ const validateLoginForm = (payload) => {
     let isFormValid = true;
     let message = '';
 
-    console.log(payload)
     if (!payload || typeof payload.email !== 'string' || payload.email.trim().length === 0) {
         isFormValid = false;
         errors.email = 'Please provide your email.';

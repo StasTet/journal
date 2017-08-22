@@ -26,7 +26,7 @@ const loginForm = (state = initialState, action) => {
         case 'LOG_OUT':
             return {
                 ...state,
-                isValid: action.payload.success,
+                isValid: false,
                 data: {},
                 errors: {}
             }
